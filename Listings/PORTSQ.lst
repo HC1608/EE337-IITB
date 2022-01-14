@@ -1,0 +1,97 @@
+A51 MACRO ASSEMBLER  PORTSQ                                                               01/14/2022 20:29:02 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\PORTSQ.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE C:\Users\Lenovo\Downloads\PORTSQ.a51 SET(SMALL) DEBUG PRINT(.\Listings\
+                      PORTSQ.lst) OBJECT(.\Objects\PORTSQ.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0H
+0000 020064            2     LJMP MAIN
+0064                   3     ORG 100
+0064                   4     MAIN:
+0064 11C8              5     CALL FINDn
+                       6     
+0066 754002            7     MOV 40H,#2 
+0069 754104            8     MOV 41H,#4
+006C 755005            9     MOV 50H,#5
+006F 8D30             10     MOV 30H, R5
+0071 7840             11     MOV R0,#40H
+0073 11D1             12     CALL FINDr
+                      13     
+0075 7840             14     BACK: MOV R0,#40H
+0077 E6               15     MOV A,@R0
+0078 AD30             16     MOV R5,30H
+007A                  17     BACKIN:
+007A 8EF0             18     MOV B,R6
+007C A4               19     MUL AB
+007D F590             20     MOV P1,A
+007F 11D9             21     CALL DELAY 
+0081 DDF7             22     DJNZ R5,BACKIN
+0083 80F0             23     JMP BACK
+                      24     
+00C8                  25     ORG 200
+00C8                  26     FINDn:
+00C8 C000             27     PUSH 0
+00CA 7850             28     MOV R0, #50H
+00CC E6               29     MOV A,@R0
+00CD FD               30     MOV R5,A 
+00CE D000             31     POP 0
+00D0 22               32     RET
+                      33     
+00D1                  34     FINDr:
+00D1 08               35     INC R0
+00D2 E6               36     MOV A,@R0
+00D3 18               37     DEC R0
+00D4 86F0             38     MOV B,@R0
+00D6 84               39     DIV AB
+00D7 FE               40     MOV R6,A
+00D8 22               41     RET
+                      42     
+00D9                  43     DELAY:
+00D9 C0E0             44     PUSH ACC
+00DB C0F0             45     push B
+00DD C005             46     PUSH 5
+00DF C006             47     PUSH 6
+00E1 7DFF             48     MOV R5,#255
+00E3 7EFF             49     MOV R6,#255
+00E5 1D               50     HERE1: DEC R5
+00E6 DEFE             51     HERE2: DJNZ R6, HERE2
+00E8 ED               52     MOV A,R5
+00E9 70FA             53     JNZ HERE1
+00EB D006             54     POP 6
+00ED D005             55     POP 5
+00EF D0F0             56     pop B
+00F1 D0E0             57     POP ACC
+A51 MACRO ASSEMBLER  PORTSQ                                                               01/14/2022 20:29:02 PAGE     2
+
+00F3 22               58     RET
+                      59     
+                      60     END
+A51 MACRO ASSEMBLER  PORTSQ                                                               01/14/2022 20:29:02 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+B. . . . . . . . .  D ADDR   00F0H   A   
+BACK . . . . . . .  C ADDR   0075H   A   
+BACKIN . . . . . .  C ADDR   007AH   A   
+DELAY. . . . . . .  C ADDR   00D9H   A   
+FINDN. . . . . . .  C ADDR   00C8H   A   
+FINDR. . . . . . .  C ADDR   00D1H   A   
+HERE1. . . . . . .  C ADDR   00E5H   A   
+HERE2. . . . . . .  C ADDR   00E6H   A   
+MAIN . . . . . . .  C ADDR   0064H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
