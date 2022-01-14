@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PORTSQ                                                               01/14/2022 20:29:02 PAGE     1
+A51 MACRO ASSEMBLER  PORTSQ                                                               01/14/2022 20:53:16 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -65,12 +65,12 @@ LOC  OBJ            LINE     SOURCE
 00ED D005             55     POP 5
 00EF D0F0             56     pop B
 00F1 D0E0             57     POP ACC
-A51 MACRO ASSEMBLER  PORTSQ                                                               01/14/2022 20:29:02 PAGE     2
+A51 MACRO ASSEMBLER  PORTSQ                                                               01/14/2022 20:53:16 PAGE     2
 
 00F3 22               58     RET
                       59     
                       60     END
-A51 MACRO ASSEMBLER  PORTSQ                                                               01/14/2022 20:29:02 PAGE     3
+A51 MACRO ASSEMBLER  PORTSQ                                                               01/14/2022 20:53:16 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
