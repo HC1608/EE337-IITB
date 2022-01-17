@@ -1,9 +1,9 @@
-A51 MACRO ASSEMBLER  PORTSQ                                                               01/14/2022 21:05:09 PAGE     1
+A51 MACRO ASSEMBLER  PORTSQ                                                               01/15/2022 18:41:22 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
 OBJECT MODULE PLACED IN .\Objects\PORTSQ.obj
-ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE PORTSQ.a51 SET(SMALL) DEBUG PRINT(.\Listings\PORTSQ.lst) OBJECT(.\Objec
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE PORTSQ.ASM SET(SMALL) DEBUG PRINT(.\Listings\PORTSQ.lst) OBJECT(.\Objec
                       ts\PORTSQ.obj) EP
 
 LOC  OBJ            LINE     SOURCE
@@ -14,7 +14,7 @@ LOC  OBJ            LINE     SOURCE
 0064                   4     MAIN:
 0064 11C8              5     CALL FINDn
                        6     
-0066 754002            7     MOV 40H,#2 
+0066 754002            7     MOV 40H,#2
 0069 754104            8     MOV 41H,#4
 006C 755005            9     MOV 50H,#5
 006F 8D30             10     MOV 30H, R5
@@ -65,12 +65,12 @@ LOC  OBJ            LINE     SOURCE
 00ED D005             55     POP 5
 00EF D0F0             56     pop B
 00F1 D0E0             57     POP ACC
-A51 MACRO ASSEMBLER  PORTSQ                                                               01/14/2022 21:05:09 PAGE     2
+A51 MACRO ASSEMBLER  PORTSQ                                                               01/15/2022 18:41:22 PAGE     2
 
 00F3 22               58     RET
                       59     
                       60     END
-A51 MACRO ASSEMBLER  PORTSQ                                                               01/14/2022 21:05:09 PAGE     3
+A51 MACRO ASSEMBLER  PORTSQ                                                               01/15/2022 18:41:22 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------

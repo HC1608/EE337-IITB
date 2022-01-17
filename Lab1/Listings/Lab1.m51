@@ -1,15 +1,15 @@
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    01/14/2022  21:05:09  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    01/17/2022  16:04:50  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
-C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\PORTSQ.obj TO .\Objects\Lab 1 PRINT (.\Listings\Lab 1.m51) RAMSIZE (256)
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\PORTSQ.obj TO .\Objects\Lab1 PRINT (.\Listings\Lab1.m51) RAMSIZE (256)
 
 
 INPUT MODULES INCLUDED:
   .\Objects\PORTSQ.obj (PORTSQ)
 
 
-LINK MAP OF MODULE:  .\Objects\Lab 1 (PORTSQ)
+LINK MAP OF MODULE:  .\Objects\Lab1 (PORTSQ)
 
 
             TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
@@ -23,7 +23,7 @@ LINK MAP OF MODULE:  .\Objects\Lab 1 (PORTSQ)
 
 
 
-SYMBOL TABLE OF MODULE:  .\Objects\Lab 1 (PORTSQ)
+SYMBOL TABLE OF MODULE:  .\Objects\Lab1 (PORTSQ)
 
   VALUE           TYPE          NAME
   ----------------------------------
@@ -59,7 +59,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\Lab 1 (PORTSQ)
   C:0083H         LINE#         23
   C:00C8H         LINE#         27
   C:00CAH         LINE#         28
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  01/14/2022  21:05:09  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  01/17/2022  16:04:50  PAGE 2
 
 
   C:00CCH         LINE#         29
