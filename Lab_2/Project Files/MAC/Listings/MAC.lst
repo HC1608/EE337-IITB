@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  MAC                                                                  01/19/2022 02:44:40 PAGE     1
+A51 MACRO ASSEMBLER  MAC                                                                  01/24/2022 14:03:59 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -60,7 +60,7 @@ LOC  OBJ            LINE     SOURCE
 017B F564             50     MOV 64H,A
 017D 22               51     RET
                       52     END
-A51 MACRO ASSEMBLER  MAC                                                                  01/19/2022 02:44:40 PAGE     2
+A51 MACRO ASSEMBLER  MAC                                                                  01/24/2022 14:03:59 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------

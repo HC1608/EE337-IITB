@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  ADD16                                                                01/19/2022 01:26:54 PAGE     1
+A51 MACRO ASSEMBLER  ADD16                                                                01/24/2022 13:57:52 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -30,7 +30,7 @@ LOC  OBJ            LINE     SOURCE
 0140 F574             20     MOV 74H,A
 0142 22               21     RET
                       22     END
-A51 MACRO ASSEMBLER  ADD16                                                                01/19/2022 01:26:54 PAGE     2
+A51 MACRO ASSEMBLER  ADD16                                                                01/24/2022 13:57:52 PAGE     2
 
 SYMBOL TABLE LISTING
 ------ ----- -------
