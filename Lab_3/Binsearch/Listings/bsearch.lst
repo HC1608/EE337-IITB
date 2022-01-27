@@ -1,0 +1,85 @@
+A51 MACRO ASSEMBLER  BSEARCH                                                              01/28/2022 01:02:16 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\bsearch.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE bsearch.a51 SET(SMALL) DEBUG PRINT(.\Listings\bsearch.lst) OBJECT(.\Obj
+                      ects\bsearch.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0H
+0000 020100            2     LJMP MAIN
+0100                   3     ORG 100H
+0100                   4     MAIN:
+0100 3130              5     CALL SEARCH
+0102 80FE              6     HERE: SJMP HERE
+0130                   7     ORG 130H
+0130                   8     SEARCH:
+                       9     
+                      10     
+                      11     
+                      12     
+                      13     
+0130 AB30             14     MOV R3, 30H; register with original value
+0132 AA31             15     MOV R2, 31H
+0134                  16     SUBMAIN:
+0134 BA0004           17     CJNE R2,#0H,LOOP
+0137 75330E           18     MOV 33H,#0EH
+013A 22               19     RET
+013B                  20     LOOP: 
+013B EA               21     MOV A, R2
+013C 9401             22     SUBB A, #1H
+013E 75F002           23     MOV B, #2H
+0141 84               24     DIV AB
+0142 FA               25     MOV R2, A
+0143 EB               26     MOV A,R3
+0144 2A               27     ADD A,R2
+0145 F8               28     MOV R0,A; the middle address
+0146 E6               29     MOV A,@R0
+0147 B53204           30     CJNE A,32H,NOTEQUAL
+014A 8833             31     MOV 33H, R0
+014C 8016             32     SJMP TERM
+014E                  33     NOTEQUAL:
+014E 4002             34     JC GREATER
+0150 80E2             35     SJMP SUBMAIN
+0152                  36     GREATER:
+0152 E8               37     MOV A, R0
+0153 2401             38     ADD A,#1H
+0155 F8               39     MOV R0,A
+0156 FB               40     MOV R3,A
+0157 E5F0             41     MOV A,B
+0159 B40002           42     CJNE A,#0H,INCR
+015C 80D6             43     SJMP SUBMAIN
+015E                  44     INCR:
+015E EA               45     MOV A, R2
+015F 2401             46     ADD A,#1H
+0161 FA               47     MOV R2,A
+0162 80D0             48     SJMP SUBMAIN
+0164                  49     TERM:
+0164 22               50     RET
+                      51     END
+A51 MACRO ASSEMBLER  BSEARCH                                                              01/28/2022 01:02:16 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+GREATER. . . . . .  C ADDR   0152H   A   
+HERE . . . . . . .  C ADDR   0102H   A   
+INCR . . . . . . .  C ADDR   015EH   A   
+LOOP . . . . . . .  C ADDR   013BH   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+NOTEQUAL . . . . .  C ADDR   014EH   A   
+SEARCH . . . . . .  C ADDR   0130H   A   
+SUBMAIN. . . . . .  C ADDR   0134H   A   
+TERM . . . . . . .  C ADDR   0164H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

@@ -1,0 +1,51 @@
+ORG 0H
+LJMP MAIN
+ORG 100H
+MAIN:
+CALL SEARCH
+HERE: SJMP HERE
+ORG 130H
+SEARCH:
+// Add your code here.
+//30H has the starting index
+//31H has the length
+//32H has the element to be searched
+//33H will have the index with the elements
+MOV R3, 30H;
+MOV R2, 31H
+SUBMAIN:
+CJNE R2,#0H,LOOP
+MOV 33H,#0EH
+RET
+LOOP: 
+MOV A, R2
+SUBB A, #1H
+MOV B, #2H
+DIV AB
+MOV R2, A
+MOV A,R3
+ADD A,R2
+MOV R0,A; the middle address
+MOV A,@R0
+CJNE A,32H,NOTEQUAL
+MOV 33H, R0
+SJMP TERM
+NOTEQUAL:
+JC GREATER
+SJMP SUBMAIN
+GREATER:
+MOV A, R0
+ADD A,#1H
+MOV R0,A
+MOV R3,A
+MOV A,B
+CJNE A,#0H,INCR
+SJMP SUBMAIN
+INCR:
+MOV A, R2
+ADD A,#1H
+MOV R2,A
+SJMP SUBMAIN
+TERM:
+RET
+END
