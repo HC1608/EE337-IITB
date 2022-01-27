@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    01/28/2022  01:02:16  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    01/28/2022  02:34:28  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
@@ -19,7 +19,7 @@ LINK MAP OF MODULE:  .\Objects\Binsearch (BSEARCH)
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
-            CODE    0000H     0165H     ABSOLUTE     
+            CODE    0000H     0164H     ABSOLUTE     
 
 
 
@@ -32,55 +32,54 @@ SYMBOL TABLE OF MODULE:  .\Objects\Binsearch (BSEARCH)
   D:00F0H         SYMBOL        B
   C:0152H         SYMBOL        GREATER
   C:0102H         SYMBOL        HERE
-  C:015EH         SYMBOL        INCR
+  C:015DH         SYMBOL        INCR
   C:013BH         SYMBOL        LOOP
   C:0100H         SYMBOL        MAIN
   C:014EH         SYMBOL        NOTEQUAL
   C:0130H         SYMBOL        SEARCH
   C:0134H         SYMBOL        SUBMAIN
-  C:0164H         SYMBOL        TERM
+  C:0163H         SYMBOL        TERM
   C:0000H         LINE#         2
   C:0100H         LINE#         5
   C:0102H         LINE#         6
   C:0130H         LINE#         14
   C:0132H         LINE#         15
   C:0134H         LINE#         17
-  C:0137H         LINE#         18
-  C:013AH         LINE#         19
-  C:013BH         LINE#         21
-  C:013CH         LINE#         22
-  C:013EH         LINE#         23
-  C:0141H         LINE#         24
-  C:0142H         LINE#         25
-  C:0143H         LINE#         26
-  C:0144H         LINE#         27
-  C:0145H         LINE#         28
-  C:0146H         LINE#         29
-  C:0147H         LINE#         30
-  C:014AH         LINE#         31
-  C:014CH         LINE#         32
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  01/28/2022  01:02:16  PAGE 2
+  C:0137H         LINE#         19
+  C:013AH         LINE#         20
+  C:013BH         LINE#         22
+  C:013CH         LINE#         23
+  C:013EH         LINE#         24
+  C:0141H         LINE#         25
+  C:0142H         LINE#         26
+  C:0143H         LINE#         27
+  C:0144H         LINE#         28
+  C:0145H         LINE#         29
+  C:0146H         LINE#         30
+  C:0147H         LINE#         31
+  C:014AH         LINE#         33
+  C:014CH         LINE#         34
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  01/28/2022  02:34:28  PAGE 2
 
 
-  C:014EH         LINE#         34
-  C:0150H         LINE#         35
-  C:0152H         LINE#         37
-  C:0153H         LINE#         38
-  C:0155H         LINE#         39
-  C:0156H         LINE#         40
-  C:0157H         LINE#         41
-  C:0159H         LINE#         42
-  C:015CH         LINE#         43
-  C:015EH         LINE#         45
-  C:015FH         LINE#         46
-  C:0161H         LINE#         47
-  C:0162H         LINE#         48
-  C:0164H         LINE#         50
+  C:014EH         LINE#         37
+  C:0150H         LINE#         39
+  C:0152H         LINE#         42
+  C:0153H         LINE#         43
+  C:0155H         LINE#         44
+  C:0156H         LINE#         45
+  C:0158H         LINE#         46
+  C:015BH         LINE#         48
+  C:015DH         LINE#         51
+  C:015EH         LINE#         52
+  C:0160H         LINE#         53
+  C:0161H         LINE#         54
+  C:0163H         LINE#         58
   -------         ENDMOD        BSEARCH
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 003CH BYTE ( 2%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 003BH BYTE ( 2%) *
 ******************************************************************************
 
-Program Size: data=8.0 xdata=0 code=357
+Program Size: data=8.0 xdata=0 code=356
 LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

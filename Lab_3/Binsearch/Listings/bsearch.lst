@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  BSEARCH                                                              01/28/2022 01:02:16 PAGE     1
+A51 MACRO ASSEMBLER  BSEARCH                                                              01/28/2022 02:34:28 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -21,45 +21,56 @@ LOC  OBJ            LINE     SOURCE
                       11     
                       12     
                       13     
-0130 AB30             14     MOV R3, 30H; register with original value
-0132 AA31             15     MOV R2, 31H
-0134                  16     SUBMAIN:
-0134 BA0004           17     CJNE R2,#0H,LOOP
-0137 75330E           18     MOV 33H,#0EH
-013A 22               19     RET
-013B                  20     LOOP: 
-013B EA               21     MOV A, R2
-013C 9401             22     SUBB A, #1H
-013E 75F002           23     MOV B, #2H
-0141 84               24     DIV AB
-0142 FA               25     MOV R2, A
-0143 EB               26     MOV A,R3
-0144 2A               27     ADD A,R2
-0145 F8               28     MOV R0,A; the middle address
-0146 E6               29     MOV A,@R0
-0147 B53204           30     CJNE A,32H,NOTEQUAL
-014A 8833             31     MOV 33H, R0
-014C 8016             32     SJMP TERM
-014E                  33     NOTEQUAL:
-014E 4002             34     JC GREATER
-0150 80E2             35     SJMP SUBMAIN
-0152                  36     GREATER:
-0152 E8               37     MOV A, R0
-0153 2401             38     ADD A,#1H
-0155 F8               39     MOV R0,A
-0156 FB               40     MOV R3,A
-0157 E5F0             41     MOV A,B
-0159 B40002           42     CJNE A,#0H,INCR
-015C 80D6             43     SJMP SUBMAIN
-015E                  44     INCR:
-015E EA               45     MOV A, R2
-015F 2401             46     ADD A,#1H
-0161 FA               47     MOV R2,A
-0162 80D0             48     SJMP SUBMAIN
-0164                  49     TERM:
-0164 22               50     RET
-                      51     END
-A51 MACRO ASSEMBLER  BSEARCH                                                              01/28/2022 01:02:16 PAGE     2
+0130 AB30             14     MOV R3, 30H; register to store the starting index
+0132 AA31             15     MOV R2, 31H; register to store the length of array
+0134                  16     SUBMAIN:; the main looping subroutine
+0134 BA0004           17     CJNE R2,#0H,LOOP; check if the length of array is zero
+                      18     
+0137 75330E           19     MOV 33H,#0EH; move 0EH to the address 33H
+013A 22               20     RET 
+013B                  21     LOOP: ;if the length of the array is non zero
+013B EA               22     MOV A, R2; move the length to accumulator
+013C 9401             23     SUBB A, #1H; make A = n-1
+013E 75F002           24     MOV B, #2H; make B = 2
+0141 84               25     DIV AB; divide (n-1) by 2
+0142 FA               26     MOV R2, A; make the new length as (n-1)//2 (the quotient)
+0143 EB               27     MOV A,R3; move the starting index to accumulator
+0144 2A               28     ADD A,R2; add the new length to starting index as the (n-1)//2 equals the no of hops needed
+                              to reach the middle index
+0145 F8               29     MOV R0,A; the address of middle index
+0146 E6               30     MOV A,@R0; move the value stored in middle index to accumulator
+0147 B53204           31     CJNE A,32H,NOTEQUAL; compare the value with search element in 32H
+                      32     
+014A 8833             33     MOV 33H, R0; move the found address to 33H
+014C 8015             34     SJMP TERM; jump to the TERM subroutine
+014E                  35     NOTEQUAL:
+                      36     
+014E 4002             37     JC GREATER
+                      38     
+0150 80E2             39     SJMP SUBMAIN
+0152                  40     GREATER:
+                      41     
+0152 E8               42     MOV A, R0; move the middle index address to A
+0153 2401             43     ADD A,#1H; add 1 to middle index address
+0155 FB               44     MOV R3,A; make the new starting point as (middle index address + 1)
+0156 E5F0             45     MOV A,B; take the remainder that we got while dividing (n-1) by 2
+0158 B40002           46     CJNE A,#0H,INCR; check if the remainder is 0, or n is odd
+                      47     
+015B 80D7             48     SJMP SUBMAIN
+015D                  49     INCR:
+                      50     
+015D EA               51     MOV A, R2; move (n-1)//2 into accumulator
+015E 2401             52     ADD A,#1H; add 1 to (n-1)//2 
+0160 FA               53     MOV R2,A; make new length as (n-1)//2 + 1 
+0161 80D1             54     SJMP SUBMAIN
+                      55     
+0163                  56     TERM:
+A51 MACRO ASSEMBLER  BSEARCH                                                              01/28/2022 02:34:28 PAGE     2
+
+                      57     
+0163 22               58     RET; exit the SEARCH subroutine
+                      59     END
+A51 MACRO ASSEMBLER  BSEARCH                                                              01/28/2022 02:34:28 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -70,13 +81,13 @@ N A M E             T Y P E  V A L U E   ATTRIBUTES
 B. . . . . . . . .  D ADDR   00F0H   A   
 GREATER. . . . . .  C ADDR   0152H   A   
 HERE . . . . . . .  C ADDR   0102H   A   
-INCR . . . . . . .  C ADDR   015EH   A   
+INCR . . . . . . .  C ADDR   015DH   A   
 LOOP . . . . . . .  C ADDR   013BH   A   
 MAIN . . . . . . .  C ADDR   0100H   A   
 NOTEQUAL . . . . .  C ADDR   014EH   A   
 SEARCH . . . . . .  C ADDR   0130H   A   
 SUBMAIN. . . . . .  C ADDR   0134H   A   
-TERM . . . . . . .  C ADDR   0164H   A   
+TERM . . . . . . .  C ADDR   0163H   A   
 
 
 REGISTER BANK(S) USED: 0 
