@@ -1,0 +1,105 @@
+A51 MACRO ASSEMBLER  DATES                                                                02/05/2022 13:27:33 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\dates.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE dates.a51 SET(SMALL) DEBUG PRINT(.\Listings\dates.lst) OBJECT(.\Objects
+                      \dates.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     org 0
+0000 8062              2     sjmp main
+0064                   3     org 100
+0064                   4     main:
+0064 755025            5             mov 50H,#25H
+0067 755106            6             mov 51H,#06H
+006A 755219            7             mov 52H,#19H
+006D 755383            8             mov 53H,#83H
+0070                   9             loop:
+0070 7850             10                     mov r0,#50H
+0072                  11                     daymonth:
+                      12                     
+0072 B85202           13                     cjne r0,#52H,dmdigit
+0075 8013             14                     sjmp year
+0077                  15                     dmdigit:
+0077 E6               16                             mov a,@r0
+0078 F590             17                             mov p1,a
+007A 11A2             18                             call onethousand
+007C C4               19                             swap a
+007D F590             20                             mov p1,a
+007F 11A2             21                             call onethousand
+0081 7AFF             22                             mov r2, #255
+0083 8A90             23                             mov p1,r2
+0085 11A2             24                             call onethousand
+0087 08               25                             inc r0
+0088 80E8             26                             sjmp daymonth
+008A                  27                     year:
+                      28                     
+008A B85408           29                     cjne r0, #54H, ydigit
+008D 7AFF             30                     mov r2, #255
+008F 8A90             31                     mov p1,r2
+0091 11A2             32                     call onethousand
+0093 80DB             33                     sjmp loop
+0095                  34                     ydigit:
+0095 E6               35                             mov a,@r0
+0096 F590             36                             mov p1,a
+0098 11A2             37                             call onethousand
+009A C4               38                             swap a
+009B F590             39                             mov p1,a
+009D 11A2             40                             call onethousand
+009F 08               41                             inc r0
+00A0 80E8             42                             sjmp year
+                      43                             
+00A2                  44     onethousand:
+00A2 79C8             45             mov r1,#200
+00A4                  46             highlight:
+00A4 11A9             47             call delay_5ms
+00A6 D9FC             48             djnz r1,highlight
+00A8 22               49             ret
+                      50     
+00A9                  51     delay_5ms:
+00A9 C000             52             push 00h
+00AB 7814             53             mov r0, #20
+00AD 11B4             54             h2: acall delay_250us
+00AF D8FC             55             djnz r0, h2
+00B1 D000             56             pop 00h
+00B3 22               57             ret
+A51 MACRO ASSEMBLER  DATES                                                                02/05/2022 13:27:33 PAGE     2
+
+                      58             
+00B4                  59     delay_250us:
+00B4 C000             60             push 00h
+00B6 78F4             61             mov r0, #244
+00B8 D8FE             62             h1: djnz r0, h1
+00BA D000             63             pop 00h
+00BC 22               64             ret     
+                      65             
+                      66     end
+A51 MACRO ASSEMBLER  DATES                                                                02/05/2022 13:27:33 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DAYMONTH . . . . .  C ADDR   0072H   A   
+DELAY_250US. . . .  C ADDR   00B4H   A   
+DELAY_5MS. . . . .  C ADDR   00A9H   A   
+DMDIGIT. . . . . .  C ADDR   0077H   A   
+H1 . . . . . . . .  C ADDR   00B8H   A   
+H2 . . . . . . . .  C ADDR   00ADH   A   
+HIGHLIGHT. . . . .  C ADDR   00A4H   A   
+LOOP . . . . . . .  C ADDR   0070H   A   
+MAIN . . . . . . .  C ADDR   0064H   A   
+ONETHOUSAND. . . .  C ADDR   00A2H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+YDIGIT . . . . . .  C ADDR   0095H   A   
+YEAR . . . . . . .  C ADDR   008AH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
