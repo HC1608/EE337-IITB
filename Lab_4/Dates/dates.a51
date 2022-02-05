@@ -8,10 +8,11 @@ main:
 	mov 53H,#83H
 	loop:
 		mov r0,#50H
-		subloop:
-		cjne r0,#53H,digit
-		sjmp loop
-		digit:
+		daymonth:
+		//for DD/MM
+		cjne r0,#52H,dmdigit
+		sjmp year
+		dmdigit:
 			mov a,@r0
 			mov p1,a
 			call twohundred
@@ -22,8 +23,24 @@ main:
 			mov p1,r2
 			call twohundred
 			inc r0
-			sjmp subloop
-	
+			sjmp daymonth
+		year:
+		// for YYYY
+		cjne r0, #54H, ydigit
+		mov r2, #255
+		mov p1,r2
+		call twohundred
+		sjmp loop
+		ydigit:
+			mov a,@r0
+			mov p1,a
+			call twohundred
+			swap a
+			mov p1,a
+			call twohundred
+			inc r0
+			sjmp year
+			
 twohundred:
 	mov r1,#200
 	highlight:

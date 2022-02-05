@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  DATES                                                                02/05/2022 12:19:19 PAGE     1
+A51 MACRO ASSEMBLER  DATES                                                                02/05/2022 13:02:02 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -18,46 +18,65 @@ LOC  OBJ            LINE     SOURCE
 006D 755383            8             mov 53H,#83H
 0070                   9             loop:
 0070 7850             10                     mov r0,#50H
-0072                  11                     subloop:
-0072 B85302           12                     cjne r0,#53H,digit
-0075 80F9             13                     sjmp loop
-0077                  14                     digit:
-0077 E6               15                             mov a,@r0
-0078 F590             16                             mov p1,a
-007A 118A             17                             call twohundred
-007C C4               18                             swap a
-007D F590             19                             mov p1,a
-007F 118A             20                             call twohundred
-0081 7AFF             21                             mov r2, #255
-0083 8A90             22                             mov p1,r2
-0085 118A             23                             call twohundred
-0087 08               24                             inc r0
-0088 80E8             25                             sjmp subloop
-                      26             
-008A                  27     twohundred:
-008A 79C8             28             mov r1,#200
-008C                  29             highlight:
-008C 1191             30             call delay_1ms
-008E D9FC             31             djnz r1,highlight
-0090 22               32             ret
-                      33     
-0091                  34     delay_1ms:
-0091 C000             35             push 00h
-0093 7804             36             mov r0, #4
-0095 119C             37             h2: acall delay_250us
-0097 D8FC             38             djnz r0, h2
-0099 D000             39             pop 00h
-009B 22               40             ret
-                      41             
-009C                  42     delay_250us:
-009C C000             43             push 00h
-009E 78F4             44             mov r0, #244
-00A0 D8FE             45             h1: djnz r0, h1
-00A2 D000             46             pop 00h
-00A4 22               47             ret     
-                      48             
-                      49     end
-A51 MACRO ASSEMBLER  DATES                                                                02/05/2022 12:19:19 PAGE     2
+0072                  11                     daymonth:
+                      12                     
+0072 B85202           13                     cjne r0,#52H,dmdigit
+0075 8013             14                     sjmp year
+0077                  15                     dmdigit:
+0077 E6               16                             mov a,@r0
+0078 F590             17                             mov p1,a
+007A 11A2             18                             call twohundred
+007C C4               19                             swap a
+007D F590             20                             mov p1,a
+007F 11A2             21                             call twohundred
+0081 7AFF             22                             mov r2, #255
+0083 8A90             23                             mov p1,r2
+0085 11A2             24                             call twohundred
+0087 08               25                             inc r0
+0088 80E8             26                             sjmp daymonth
+008A                  27                     year:
+                      28                     
+008A B85408           29                     cjne r0, #54H, ydigit
+008D 7AFF             30                     mov r2, #255
+008F 8A90             31                     mov p1,r2
+0091 11A2             32                     call twohundred
+0093 80DB             33                     sjmp loop
+0095                  34                     ydigit:
+0095 E6               35                             mov a,@r0
+0096 F590             36                             mov p1,a
+0098 11A2             37                             call twohundred
+009A C4               38                             swap a
+009B F590             39                             mov p1,a
+009D 11A2             40                             call twohundred
+009F 08               41                             inc r0
+00A0 80E8             42                             sjmp year
+                      43                             
+00A2                  44     twohundred:
+00A2 79C8             45             mov r1,#200
+00A4                  46             highlight:
+00A4 11A9             47             call delay_1ms
+00A6 D9FC             48             djnz r1,highlight
+00A8 22               49             ret
+                      50     
+00A9                  51     delay_1ms:
+00A9 C000             52             push 00h
+00AB 7804             53             mov r0, #4
+00AD 11B4             54             h2: acall delay_250us
+00AF D8FC             55             djnz r0, h2
+00B1 D000             56             pop 00h
+00B3 22               57             ret
+A51 MACRO ASSEMBLER  DATES                                                                02/05/2022 13:02:02 PAGE     2
+
+                      58             
+00B4                  59     delay_250us:
+00B4 C000             60             push 00h
+00B6 78F4             61             mov r0, #244
+00B8 D8FE             62             h1: djnz r0, h1
+00BA D000             63             pop 00h
+00BC 22               64             ret     
+                      65             
+                      66     end
+A51 MACRO ASSEMBLER  DATES                                                                02/05/2022 13:02:02 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -65,17 +84,19 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-DELAY_1MS. . . . .  C ADDR   0091H   A   
-DELAY_250US. . . .  C ADDR   009CH   A   
-DIGIT. . . . . . .  C ADDR   0077H   A   
-H1 . . . . . . . .  C ADDR   00A0H   A   
-H2 . . . . . . . .  C ADDR   0095H   A   
-HIGHLIGHT. . . . .  C ADDR   008CH   A   
+DAYMONTH . . . . .  C ADDR   0072H   A   
+DELAY_1MS. . . . .  C ADDR   00A9H   A   
+DELAY_250US. . . .  C ADDR   00B4H   A   
+DMDIGIT. . . . . .  C ADDR   0077H   A   
+H1 . . . . . . . .  C ADDR   00B8H   A   
+H2 . . . . . . . .  C ADDR   00ADH   A   
+HIGHLIGHT. . . . .  C ADDR   00A4H   A   
 LOOP . . . . . . .  C ADDR   0070H   A   
 MAIN . . . . . . .  C ADDR   0064H   A   
 P1 . . . . . . . .  D ADDR   0090H   A   
-SUBLOOP. . . . . .  C ADDR   0072H   A   
-TWOHUNDRED . . . .  C ADDR   008AH   A   
+TWOHUNDRED . . . .  C ADDR   00A2H   A   
+YDIGIT . . . . . .  C ADDR   0095H   A   
+YEAR . . . . . . .  C ADDR   008AH   A   
 
 
 REGISTER BANK(S) USED: 0 
