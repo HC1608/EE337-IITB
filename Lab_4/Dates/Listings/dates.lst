@@ -1,0 +1,84 @@
+A51 MACRO ASSEMBLER  DATES                                                                02/05/2022 12:19:19 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\dates.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE dates.a51 SET(SMALL) DEBUG PRINT(.\Listings\dates.lst) OBJECT(.\Objects
+                      \dates.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     org 0
+0000 8062              2     sjmp main
+0064                   3     org 100
+0064                   4     main:
+0064 755025            5             mov 50H,#25H
+0067 755106            6             mov 51H,#06H
+006A 755219            7             mov 52H,#19H
+006D 755383            8             mov 53H,#83H
+0070                   9             loop:
+0070 7850             10                     mov r0,#50H
+0072                  11                     subloop:
+0072 B85302           12                     cjne r0,#53H,digit
+0075 80F9             13                     sjmp loop
+0077                  14                     digit:
+0077 E6               15                             mov a,@r0
+0078 F590             16                             mov p1,a
+007A 118A             17                             call twohundred
+007C C4               18                             swap a
+007D F590             19                             mov p1,a
+007F 118A             20                             call twohundred
+0081 7AFF             21                             mov r2, #255
+0083 8A90             22                             mov p1,r2
+0085 118A             23                             call twohundred
+0087 08               24                             inc r0
+0088 80E8             25                             sjmp subloop
+                      26             
+008A                  27     twohundred:
+008A 79C8             28             mov r1,#200
+008C                  29             highlight:
+008C 1191             30             call delay_1ms
+008E D9FC             31             djnz r1,highlight
+0090 22               32             ret
+                      33     
+0091                  34     delay_1ms:
+0091 C000             35             push 00h
+0093 7804             36             mov r0, #4
+0095 119C             37             h2: acall delay_250us
+0097 D8FC             38             djnz r0, h2
+0099 D000             39             pop 00h
+009B 22               40             ret
+                      41             
+009C                  42     delay_250us:
+009C C000             43             push 00h
+009E 78F4             44             mov r0, #244
+00A0 D8FE             45             h1: djnz r0, h1
+00A2 D000             46             pop 00h
+00A4 22               47             ret     
+                      48             
+                      49     end
+A51 MACRO ASSEMBLER  DATES                                                                02/05/2022 12:19:19 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY_1MS. . . . .  C ADDR   0091H   A   
+DELAY_250US. . . .  C ADDR   009CH   A   
+DIGIT. . . . . . .  C ADDR   0077H   A   
+H1 . . . . . . . .  C ADDR   00A0H   A   
+H2 . . . . . . . .  C ADDR   0095H   A   
+HIGHLIGHT. . . . .  C ADDR   008CH   A   
+LOOP . . . . . . .  C ADDR   0070H   A   
+MAIN . . . . . . .  C ADDR   0064H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+SUBLOOP. . . . . .  C ADDR   0072H   A   
+TWOHUNDRED . . . .  C ADDR   008AH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
