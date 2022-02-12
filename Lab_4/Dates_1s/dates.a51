@@ -2,10 +2,10 @@ org 0
 sjmp main
 org 100
 main:
-	mov 50H,#25H
-	mov 51H,#06H
-	mov 52H,#19H
-	mov 53H,#83H
+	mov 50H,#11H
+	mov 51H,#07H
+	mov 52H,#20H
+	mov 53H,#02H
 	loop:
 		mov r0,#50H
 		daymonth:

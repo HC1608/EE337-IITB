@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  DATES                                                                02/05/2022 13:27:33 PAGE     1
+A51 MACRO ASSEMBLER  DATES                                                                02/07/2022 15:47:52 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -12,10 +12,10 @@ LOC  OBJ            LINE     SOURCE
 0000 8062              2     sjmp main
 0064                   3     org 100
 0064                   4     main:
-0064 755025            5             mov 50H,#25H
-0067 755106            6             mov 51H,#06H
-006A 755219            7             mov 52H,#19H
-006D 755383            8             mov 53H,#83H
+0064 755011            5             mov 50H,#11H
+0067 755107            6             mov 51H,#07H
+006A 755220            7             mov 52H,#20H
+006D 755302            8             mov 53H,#02H
 0070                   9             loop:
 0070 7850             10                     mov r0,#50H
 0072                  11                     daymonth:
@@ -65,7 +65,7 @@ LOC  OBJ            LINE     SOURCE
 00AF D8FC             55             djnz r0, h2
 00B1 D000             56             pop 00h
 00B3 22               57             ret
-A51 MACRO ASSEMBLER  DATES                                                                02/05/2022 13:27:33 PAGE     2
+A51 MACRO ASSEMBLER  DATES                                                                02/07/2022 15:47:52 PAGE     2
 
                       58             
 00B4                  59     delay_250us:
@@ -76,7 +76,7 @@ LOC  OBJ            LINE     SOURCE
 00BC 22               64             ret     
                       65             
                       66     end
-A51 MACRO ASSEMBLER  DATES                                                                02/05/2022 13:27:33 PAGE     3
+A51 MACRO ASSEMBLER  DATES                                                                02/07/2022 15:47:52 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------

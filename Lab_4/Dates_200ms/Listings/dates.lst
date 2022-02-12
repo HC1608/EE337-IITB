@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  DATES                                                                02/05/2022 13:02:02 PAGE     1
+A51 MACRO ASSEMBLER  DATES                                                                02/06/2022 17:15:47 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -65,7 +65,7 @@ LOC  OBJ            LINE     SOURCE
 00AF D8FC             55             djnz r0, h2
 00B1 D000             56             pop 00h
 00B3 22               57             ret
-A51 MACRO ASSEMBLER  DATES                                                                02/05/2022 13:02:02 PAGE     2
+A51 MACRO ASSEMBLER  DATES                                                                02/06/2022 17:15:47 PAGE     2
 
                       58             
 00B4                  59     delay_250us:
@@ -76,7 +76,7 @@ LOC  OBJ            LINE     SOURCE
 00BC 22               64             ret     
                       65             
                       66     end
-A51 MACRO ASSEMBLER  DATES                                                                02/05/2022 13:02:02 PAGE     3
+A51 MACRO ASSEMBLER  DATES                                                                02/06/2022 17:15:47 PAGE     3
 
 SYMBOL TABLE LISTING
 ------ ----- -------

@@ -1,0 +1,67 @@
+A51 MACRO ASSEMBLER  ASCII                                                                02/12/2022 23:02:08 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\ASCII.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE ASCII.a51 SET(SMALL) DEBUG PRINT(.\Listings\ASCII.lst) OBJECT(.\Objects
+                      \ASCII.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     org 0H
+0000 020100            2     ljmp main
+0100                   3     org 100H
+                       4     
+0100                   5     main:
+0100 3102              6             call  ascii_finder
+                       7     
+0102                   8     ascii_finder:
+0102 A930              9             mov r1, 30H; the number
+0104 E9               10             mov a, r1
+0105 75F010           11             mov b, #10H
+0108 84               12             div ab; divide by 10H to get both digits 
+0109 FA               13             mov r2, a; the first digit
+010A ABF0             14             mov r3, b; the second digit
+010C EA               15             mov a, r2
+010D 3117             16             call check_the_val
+010F F560             17             mov 60H, a; move the accumulator to 60H
+0111 EB               18             mov a, r3
+0112 3117             19             call check_the_val
+0114 F561             20             mov 61H, a; move the accumulator to 61H
+0116 22               21             ret
+                      22     
+0117                  23     check_the_val:
+0117 B40903           24             cjne a,#9H,unequal; check if equal to 9
+011A 2430             25             add a,#30H
+011C 22               26             ret
+011D                  27             unequal:
+011D 4003             28                     jc smaller; check if smaller than 9
+                      29                     ;greater than 9 case
+                      30                     ;add 37H to get ASCII for A-F
+011F 2437             31                     add a, #37H
+0121 22               32                     ret
+0122                  33                     smaller:
+                      34                             ;add 30H to get ASCII for 0-9
+0122 2430             35                             add a, #30H
+0124 22               36                             ret
+                      37     end
+A51 MACRO ASSEMBLER  ASCII                                                                02/12/2022 23:02:08 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ASCII_FINDER . . .  C ADDR   0102H   A   
+B. . . . . . . . .  D ADDR   00F0H   A   
+CHECK_THE_VAL. . .  C ADDR   0117H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+SMALLER. . . . . .  C ADDR   0122H   A   
+UNEQUAL. . . . . .  C ADDR   011DH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
