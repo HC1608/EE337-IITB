@@ -248,7 +248,7 @@ delay_1s:
 
 delay_5ms:
 	push 00h
-	mov r0, #40
+	mov r0, #20
 	h2: acall delay_250us
 	djnz r0, h2
 	pop 00h

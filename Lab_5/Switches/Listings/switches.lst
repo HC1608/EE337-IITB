@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  SWITCHES                                                             02/13/2022 16:25:22 PAGE     1
+A51 MACRO ASSEMBLER  SWITCHES                                                             02/13/2022 16:33:59 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -65,7 +65,7 @@ LOC  OBJ            LINE     SOURCE
 007A 90030D           55             mov   dptr,#my_string2
 007D 515D             56             acall lcd_sendstring
                       57             ;state 1
-A51 MACRO ASSEMBLER  SWITCHES                                                             02/13/2022 16:25:22 PAGE     2
+A51 MACRO ASSEMBLER  SWITCHES                                                             02/13/2022 16:33:59 PAGE     2
 
 007F C294             58             clr P1.4
 0081 C295             59             clr P1.5
@@ -133,7 +133,7 @@ LOC  OBJ            LINE     SOURCE
 00F5 E562            121             mov a,62H
 00F7 514C            122             acall lcd_senddata
 00F9 E563            123             mov a,63H
-A51 MACRO ASSEMBLER  SWITCHES                                                             02/13/2022 16:25:22 PAGE     3
+A51 MACRO ASSEMBLER  SWITCHES                                                             02/13/2022 16:33:59 PAGE     3
 
 00FB 514C            124             acall lcd_senddata
 00FD 31A5            125             call delay_1s
@@ -201,7 +201,7 @@ LOC  OBJ            LINE     SOURCE
 015F FA              187             mov r2, a; the first digit
 0160 ABF0            188             mov r3, b; the second digit
 0162 EA              189             mov a, r2
-A51 MACRO ASSEMBLER  SWITCHES                                                             02/13/2022 16:25:22 PAGE     4
+A51 MACRO ASSEMBLER  SWITCHES                                                             02/13/2022 16:33:59 PAGE     4
 
 0163 3197            190             call check_the_val
 0165 F562            191             mov 62H, a; move the accumulator to 60H
@@ -264,12 +264,12 @@ LOC  OBJ            LINE     SOURCE
                      248     
 01AC                 249     delay_5ms:
 01AC C000            250             push 00h
-01AE 7828            251             mov r0, #40
+01AE 7814            251             mov r0, #20
 01B0 31B7            252             h2: acall delay_250us
 01B2 D8FC            253             djnz r0, h2
 01B4 D000            254             pop 00h
 01B6 22              255             ret
-A51 MACRO ASSEMBLER  SWITCHES                                                             02/13/2022 16:25:22 PAGE     5
+A51 MACRO ASSEMBLER  SWITCHES                                                             02/13/2022 16:33:59 PAGE     5
 
                      256             
 01B7                 257     delay_250us:
@@ -337,7 +337,7 @@ LOC  OBJ            LINE     SOURCE
 0250 C281            317              clr   LCD_rw         ;We are writing
 0252 D282            318              setb  LCD_en         ;Enable H->L
 0254 516B            319                      acall delay
-A51 MACRO ASSEMBLER  SWITCHES                                                             02/13/2022 16:25:22 PAGE     6
+A51 MACRO ASSEMBLER  SWITCHES                                                             02/13/2022 16:33:59 PAGE     6
 
 0256 C282            320              clr   LCD_en
 0258 516B            321              acall delay
@@ -405,13 +405,13 @@ LOC  OBJ            LINE     SOURCE
 0346 52657375        369                      DB   "Result  =   ",00H
 034A 6C742020                
 034E 3D202020                
-A51 MACRO ASSEMBLER  SWITCHES                                                             02/13/2022 16:25:22 PAGE     7
+A51 MACRO ASSEMBLER  SWITCHES                                                             02/13/2022 16:33:59 PAGE     7
 
 0352 00                      
                      370                              
                      371     end
                              
-A51 MACRO ASSEMBLER  SWITCHES                                                             02/13/2022 16:25:22 PAGE     8
+A51 MACRO ASSEMBLER  SWITCHES                                                             02/13/2022 16:33:59 PAGE     8
 
 SYMBOL TABLE LISTING
 ------ ----- -------
