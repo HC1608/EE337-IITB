@@ -3,15 +3,13 @@ LCD_data equ P2    ;LCD Data port
 LCD_rs   equ P0.0  ;LCD Register Select
 LCD_rw   equ P0.1  ;LCD Read/Write
 LCD_en   equ P0.2  ;LCD Enable
-
-
+	
 org 0H
 ljmp main
 
 org 030H	
 main:
 	mov P2,#00h
-	mov P1,#00h
 	;initial delay for lcd power up
 	;here1:setb p1.0
 	acall delay
@@ -57,7 +55,6 @@ stateonetofour:
 	mov   dptr,#my_string2
 	acall lcd_sendstring
 	;state 1
-	mov P1,#0H
 	clr P1.4
 	clr P1.5
 	clr P1.6
@@ -67,7 +64,6 @@ stateonetofour:
 	mov a,#0H
 	call read_from_pins
 	;state 2
-	mov P1,#0H
 	clr P1.4
 	clr P1.5
 	setb P1.6
@@ -78,7 +74,6 @@ stateonetofour:
 	call read_from_pins
 	mov 30H,a
 	;state 3
-	mov P1,#0H
 	clr P1.4
 	setb P1.5
 	clr P1.6
@@ -88,7 +83,6 @@ stateonetofour:
 	mov a,#0H
 	call read_from_pins
 	;state 4
-	mov P1,#0H
 	setb P1.4
 	clr P1.5
 	clr P1.6
@@ -106,15 +100,7 @@ statefive:
 	clr P1.6
 	clr P1.7
 	call ascii_finder_one
-	mov a,60H
-	N1_H equ a
-	mov a,61H
-	N1_L equ a
 	call ascii_finder_two
-	mov a,62H
-	N2_H equ a
-	mov a,63H
-	N2_L equ a
 	mov a,#80h		 ;Put cursor on first row,2 column
 	acall lcd_command	 ;send command to LCD
 	acall delay
@@ -126,6 +112,16 @@ statefive:
 	acall delay
 	mov   dptr,#my_string4
 	acall lcd_sendstring
+	mov a,60H
+	acall lcd_senddata
+	mov a,61H
+	acall lcd_senddata
+	mov   dptr,#my_string7
+	acall lcd_sendstring
+	mov a,62H
+	acall lcd_senddata
+	mov a,63H
+	acall lcd_senddata
 	call delay_1s
 	call delay_1s
 	mov a, 30H
@@ -134,28 +130,22 @@ statefive:
 	mov 50H, b
 	mov 51H, a
 	call ascii_finder_three
-	mov a,60H
-	N3_H equ a
-	mov a,61H
-	N3_L equ a
 	call ascii_finder_four
-	mov a,62H
-	N4_H equ a
-	mov a,63H
-	N4_L equ a
 	mov a,#80h		 ;Put cursor on first row,2 column
 	acall lcd_command	 ;send command to LCD
 	acall delay
 	mov   dptr,#my_string6   ;Load DPTR with sring1 Addr
 	acall lcd_sendstring	   ;call text strings sending routine
-	acall delay
-	mov a,#0C0h		  ;Put cursor on second row,4 column
-	acall lcd_command
-	acall delay
-	mov   dptr,#my_string4
-	acall lcd_sendstring
-	call delay_1s
-	call delay_1s
+	mov a,64H
+	acall lcd_senddata
+	mov a,65H
+	acall lcd_senddata
+	mov a,66H
+	acall lcd_senddata
+	mov a,67H
+	acall lcd_senddata
+	statesix:
+		ljmp statesix
 	
 
 read_from_pins:
@@ -213,10 +203,10 @@ ascii_finder_three:
 	mov r3, b; the second digit
 	mov a, r2
 	call check_the_val
-	mov 60H, a; move the accumulator to 60H
+	mov 64H, a; move the accumulator to 60H
 	mov a, r3
 	call check_the_val
-	mov 61H, a; move the accumulator to 61H
+	mov 65H, a; move the accumulator to 61H
 	ret
 
 ascii_finder_four:
@@ -228,10 +218,10 @@ ascii_finder_four:
 	mov r3, b; the second digit
 	mov a, r2
 	call check_the_val
-	mov 62H, a; move the accumulator to 60H
+	mov 66H, a; move the accumulator to 60H
 	mov a, r3
 	call check_the_val
-	mov 63H, a; move the accumulator to 61H
+	mov 67H, a; move the accumulator to 61H
 	ret
 
 check_the_val:
@@ -367,13 +357,16 @@ my_string3:
 		 DB   "Reading Inputs",00H
 
 my_string4:
-		 DB   "Num1:",30H,30H,", Num2:",30H,30H,00H
+		 DB   "Num1:",00H
+
+my_string7: 
+		 DB	  ", Num2:",00H
 
 my_string5:
 		 DB   "Computing Result",00H
 
 my_string6:
-		 DB   " Result = ",30H,30H,30H,30H,"  ",00H
-
+		 DB   "Result  =   ",00H
+			 
 end
 
