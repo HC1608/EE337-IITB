@@ -4,6 +4,7 @@ LCD_rs   equ P0.0  ;LCD Register Select
 LCD_rw   equ P0.1  ;LCD Read/Write
 LCD_en   equ P0.2  ;LCD Enable
 
+
 org 0H
 ljmp main
 
@@ -44,7 +45,7 @@ statezero:
 
 stateonetofour:
 	;set up lcd
-	mov a,#82h		 ;Put cursor on first row,2 column
+	mov a,#81h		 ;Put cursor on first row,2 column
 	acall lcd_command	 ;send command to LCD
 	acall delay
 	mov   dptr,#my_string3   ;Load DPTR with sring1 Addr
@@ -56,6 +57,7 @@ stateonetofour:
 	mov   dptr,#my_string2
 	acall lcd_sendstring
 	;state 1
+	mov P1,#0H
 	clr P1.4
 	clr P1.5
 	clr P1.6
@@ -65,6 +67,7 @@ stateonetofour:
 	mov a,#0H
 	call read_from_pins
 	;state 2
+	mov P1,#0H
 	clr P1.4
 	clr P1.5
 	setb P1.6
@@ -75,6 +78,7 @@ stateonetofour:
 	call read_from_pins
 	mov 30H,a
 	;state 3
+	mov P1,#0H
 	clr P1.4
 	setb P1.5
 	clr P1.6
@@ -84,6 +88,7 @@ stateonetofour:
 	mov a,#0H
 	call read_from_pins
 	;state 4
+	mov P1,#0H
 	setb P1.4
 	clr P1.5
 	clr P1.6
@@ -101,14 +106,22 @@ statefive:
 	clr P1.6
 	clr P1.7
 	call ascii_finder_one
+	mov a,60H
+	N1_H equ a
+	mov a,61H
+	N1_L equ a
 	call ascii_finder_two
-	mov a,#81h		 ;Put cursor on first row,2 column
+	mov a,62H
+	N2_H equ a
+	mov a,63H
+	N2_L equ a
+	mov a,#80h		 ;Put cursor on first row,2 column
 	acall lcd_command	 ;send command to LCD
 	acall delay
 	mov   dptr,#my_string5   ;Load DPTR with sring1 Addr
 	acall lcd_sendstring	   ;call text strings sending routine
 	acall delay
-	mov a,#0C1h		  ;Put cursor on second row,4 column
+	mov a,#0C0h		  ;Put cursor on second row,4 column
 	acall lcd_command
 	acall delay
 	mov   dptr,#my_string4
@@ -120,23 +133,29 @@ statefive:
 	mul ab
 	mov 50H, b
 	mov 51H, a
-	mov 30H, b
-	mov 31H, a
-	call ascii_finder_one
-	call ascii_finder_two
-	mov a,#81h		 ;Put cursor on first row,2 column
+	call ascii_finder_three
+	mov a,60H
+	N3_H equ a
+	mov a,61H
+	N3_L equ a
+	call ascii_finder_four
+	mov a,62H
+	N4_H equ a
+	mov a,63H
+	N4_L equ a
+	mov a,#80h		 ;Put cursor on first row,2 column
 	acall lcd_command	 ;send command to LCD
 	acall delay
 	mov   dptr,#my_string6   ;Load DPTR with sring1 Addr
 	acall lcd_sendstring	   ;call text strings sending routine
 	acall delay
-	mov a,#0C1h		  ;Put cursor on second row,4 column
+	mov a,#0C0h		  ;Put cursor on second row,4 column
 	acall lcd_command
 	acall delay
 	mov   dptr,#my_string4
 	acall lcd_sendstring
-	ljmp here
-	here: ljmp here
+	call delay_1s
+	call delay_1s
 	
 
 read_from_pins:
@@ -185,6 +204,36 @@ ascii_finder_two:
 	mov 63H, a; move the accumulator to 61H
 	ret
 
+ascii_finder_three:
+	mov r1, 50H; the number
+	mov a, r1
+	mov b, #10H
+	div ab; divide by 10H to get both digits 
+	mov r2, a; the first digit
+	mov r3, b; the second digit
+	mov a, r2
+	call check_the_val
+	mov 60H, a; move the accumulator to 60H
+	mov a, r3
+	call check_the_val
+	mov 61H, a; move the accumulator to 61H
+	ret
+
+ascii_finder_four:
+	mov r1, 51H; the number
+	mov a, r1
+	mov b, #10H
+	div ab; divide by 10H to get both digits 
+	mov r2, a; the first digit
+	mov r3, b; the second digit
+	mov a, r2
+	call check_the_val
+	mov 62H, a; move the accumulator to 60H
+	mov a, r3
+	call check_the_val
+	mov 63H, a; move the accumulator to 61H
+	ret
+
 check_the_val:
 		cjne a,#9H,unequal; check if equal to 9
 		add a,#30H
@@ -209,7 +258,7 @@ delay_1s:
 
 delay_5ms:
 	push 00h
-	mov r0, #20
+	mov r0, #40
 	h2: acall delay_250us
 	djnz r0, h2
 	pop 00h
@@ -309,17 +358,22 @@ loop2:	 mov r1,#255
 ;--------------------------------------------------------
 org 300H
 my_string1:
-		 DB   "Enter Inputs", 00H
+		 DB   "Enter Inputs",00H
+
 my_string2:
-         DB   "EE337-2022", 00H
+         DB   "EE337-2022",00H
+
 my_string3:
-		 DB   "Reading Inputs", 00H
+		 DB   "Reading Inputs",00H
+
 my_string4:
-		 DB   "Num1:",60H,61H,", Num2:",62H,63H
+		 DB   "Num1:",30H,30H,", Num2:",30H,30H,00H
+
 my_string5:
-		 DB   "Computing Result", 00H
+		 DB   "Computing Result",00H
+
 my_string6:
-		 DB   "Result = ",60H,61H,62H,63H
+		 DB   " Result = ",30H,30H,30H,30H,"  ",00H
 
 end
 
