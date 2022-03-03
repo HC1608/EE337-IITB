@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:16:41 PAGE     1
+A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:23:06 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -65,7 +65,7 @@ LOC  OBJ            LINE     SOURCE
 007F 54F0             54                             anl a, #0F0H
 0081 C4               55                             swap a
 0082 FF               56                             mov r7, a
-A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:16:41 PAGE     2
+A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:23:06 PAGE     2
 
 0083 F590             57                             mov P1, a
 0085 311A             58                             call bin_converter
@@ -133,7 +133,7 @@ LOC  OBJ            LINE     SOURCE
 00F9 515D            117                             call lcd_sendstring             ;call text strings sending routine
 00FB 516B            118                             call delay
 00FD 74C4            119                             mov a,#0C4h               ;Put cursor on second row,4 column
-A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:16:41 PAGE     3
+A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:23:06 PAGE     3
 
 00FF 513D            120                             call lcd_command
 0101 516B            121                             call delay
@@ -201,7 +201,7 @@ LOC  OBJ            LINE     SOURCE
 0163 ABF0            183             mov r3, b; the second digit
 0165 EA              184             mov a, r2
 0166 3170            185             call check_the_val
-A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:16:41 PAGE     4
+A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:23:06 PAGE     4
 
 0168 F562            186             mov 62H, a; move the accumulator to 60H
 016A EB              187             mov a, r3
@@ -269,7 +269,7 @@ LOC  OBJ            LINE     SOURCE
 020F 75A00C          247              mov   LCD_data,#0CH  ;Display on, Curson off
 0212 C280            248              clr   LCD_rs         ;Selected instruction register
 0214 C281            249              clr   LCD_rw         ;We are writing in instruction register
-A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:16:41 PAGE     5
+A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:23:06 PAGE     5
 
 0216 D282            250              setb  LCD_en         ;Enable H->L
 0218 516B            251                      acall delay
@@ -337,7 +337,7 @@ LOC  OBJ            LINE     SOURCE
                      310     ;----------------------delay routine-----------------------------------------------------
 026B C000            311     delay:   push 0
 026D C001            312              push 1
-A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:16:41 PAGE     6
+A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:23:06 PAGE     6
 
 026F 7801            313              mov r0,#1
 0271 79FF            314     loop2:   mov r1,#255
@@ -369,7 +369,7 @@ LOC  OBJ            LINE     SOURCE
 0324 653A2000                
                      336                              
                      337     end     
-A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:16:41 PAGE     7
+A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:23:06 PAGE     7
 
 SYMBOL TABLE LISTING
 ------ ----- -------
