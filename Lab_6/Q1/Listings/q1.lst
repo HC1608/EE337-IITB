@@ -1,0 +1,86 @@
+A51 MACRO ASSEMBLER  Q1                                                                   03/03/2022 21:28:34 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\q1.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE q1.a51 SET(SMALL) DEBUG PRINT(.\Listings\q1.lst) OBJECT(.\Objects\q1.ob
+                      j) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     org 0H
+0000 2100              2     jmp main
+0100                   3     org 100H
+                       4             
+0100                   5     main:
+0100 758901            6             mov TMOD, #01H          ;set timer0 in mode 1
+0103 759000            7             mov P1, #00H            ;configure as output
+0106 7540C3            8             mov 40H,#0C3H           ;to set maximum possible delay of 1
+0109 754150            9             mov 41H,#50H    
+010C 3131             10             call subtract           ;load 2s complement into 42H and 43H
+010E                  11             forever:
+010E 311A             12                     call delay_1s
+0110 7590FF           13                     mov P1, #0FFH
+0113 311A             14                     call delay_1s
+0115 759000           15                     mov P1, #00H
+0118 80F4             16                     jmp forever
+                      17     
+                      18     
+011A                  19     delay_1s:
+011A 7A28             20             mov r2, #40
+011C                  21             repeat:
+011C 3121             22                     call delay_33ms
+011E DAFC             23                     djnz r2, repeat
+0120 22               24                     ret
+                      25     
+0121                  26     delay_33ms:
+0121 85428C           27             mov TH0, 42H
+0124 85438A           28             mov TL0, 43H
+0127 D28C             29             setb TR0
+0129                  30             loop1: 
+0129 208D02           31                     jb TF0, exit
+012C 80FB             32                     jmp loop1
+012E                  33             exit:
+012E C28D             34                     clr TF0 
+0130 22               35                     ret
+                      36     
+0131                  37     subtract:
+0131 A840             38             mov r0, 40H
+0133 A941             39             mov r1, 41H
+0135 74FF             40             mov a, #0FFH
+0137 98               41             subb a, r0
+0138 F542             42             mov 42H, a
+013A 7400             43             mov a, #00H
+013C 99               44             subb a, r1
+013D F543             45             mov 43H, a
+013F 22               46             ret
+                      47             
+                      48     end     
+A51 MACRO ASSEMBLER  Q1                                                                   03/03/2022 21:28:34 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY_1S . . . . .  C ADDR   011AH   A   
+DELAY_33MS . . . .  C ADDR   0121H   A   
+EXIT . . . . . . .  C ADDR   012EH   A   
+FOREVER. . . . . .  C ADDR   010EH   A   
+LOOP1. . . . . . .  C ADDR   0129H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+REPEAT . . . . . .  C ADDR   011CH   A   
+SUBTRACT . . . . .  C ADDR   0131H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
