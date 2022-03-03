@@ -13,6 +13,8 @@ main:
 	mov P1, #00H		;configure as output
 	mov 40H, #0C3H		;to set TH,TL = C350 (hex) = 50000 (dec)
 	mov 41H, #50H		
+	mov 70H, #23H
+	mov 71H, #45H
 	call subtract		;load 2s complement into 42H and 43H
 						;initial delay for lcd power up
 	call delay
@@ -30,16 +32,18 @@ main:
 			mov P1, a
 			call bin_converter
 			call ascii_finder
-			mov a,#82h		 			;Put cursor on first row,2 column
+			mov a,#85h		 			;Put cursor on first row,2 column
 			call lcd_command	 		;send command to LCD
 			call delay
 			mov dptr,#my_string1      	
 			call lcd_sendstring	    	;call text strings sending routine
 			call delay
-			mov a,#0C4h		  ;Put cursor on second row,4 column
+			mov a,#0C3h		  ;Put cursor on second row,4 column
 			call lcd_command
 			call delay
 			mov dptr,#my_string5
+			call lcd_sendstring	    	;call text strings sending routine
+			call delay
 			mov a,60H
 			acall lcd_senddata
 			mov a,61H
@@ -57,16 +61,18 @@ main:
 			mov P1, a
 			call bin_converter
 			call ascii_finder
-			mov a,#82h		 			;Put cursor on first row,2 column
+			mov a,#85h		 			;Put cursor on first row,2 column
 			call lcd_command	 		;send command to LCD
 			call delay
 			mov dptr,#my_string2      	
 			call lcd_sendstring	    	;call text strings sending routine
 			call delay
-			mov a,#0C4h		  ;Put cursor on second row,4 column
+			mov a,#0C3h		  ;Put cursor on second row,4 column
 			call lcd_command
 			call delay
 			mov dptr,#my_string5
+			call lcd_sendstring	    	;call text strings sending routine
+			call delay
 			mov a,60H
 			acall lcd_senddata
 			mov a,61H
@@ -83,16 +89,18 @@ main:
 			mov P1, a
 			call bin_converter
 			call ascii_finder
-			mov a,#82h		 			;Put cursor on first row,2 column
+			mov a,#85h		 			;Put cursor on first row,2 column
 			call lcd_command	 		;send command to LCD
 			call delay
-			mov dptr,#my_string1      	
+			mov dptr,#my_string3      	
 			call lcd_sendstring	    	;call text strings sending routine
 			call delay
-			mov a,#0C4h		  ;Put cursor on second row,4 column
+			mov a,#0C3h		  ;Put cursor on second row,4 column
 			call lcd_command
 			call delay
 			mov dptr,#my_string5
+			call lcd_sendstring	    	;call text strings sending routine
+			call delay
 			mov a,60H
 			acall lcd_senddata
 			mov a,61H
@@ -110,16 +118,18 @@ main:
 			mov P1, a
 			call bin_converter
 			call ascii_finder
-			mov a,#82h		 			;Put cursor on first row,2 column
+			mov a,#85h		 			;Put cursor on first row,2 column
 			call lcd_command	 		;send command to LCD
 			call delay
-			mov dptr,#my_string2      	
+			mov dptr,#my_string4      	
 			call lcd_sendstring	    	;call text strings sending routine
 			call delay
-			mov a,#0C4h		  ;Put cursor on second row,4 column
+			mov a,#0C3h		  ;Put cursor on second row,4 column
 			call lcd_command
 			call delay
 			mov dptr,#my_string5
+			call lcd_sendstring	    	;call text strings sending routine
+			call delay
 			mov a,60H
 			acall lcd_senddata
 			mov a,61H
