@@ -146,29 +146,37 @@ bin_converter:
 	anl a, #08H
 	cjne a, #08H, skip_1
 		mov r6,#10H
+		jmp post_skip_1
 	skip_1:
 		mov r6,#00H
+	post_skip_1:
 	mov a, r7				 ;second bit
 	anl a, #04H
 	cjne a, #04H, skip_2
 		mov a,r6
 		add a,#01H
+		jmp post_skip_2
 	skip_2:
 		mov a,r6
+	post_skip_2:
 	mov 31H, a
 	mov a, r7 				 ;third bit
 	anl a, #02H
 	cjne a, #02H, skip_3
 		mov r6,#10H
+		jmp post_skip_3
 	skip_3:
 		mov r6,#00H
+	post_skip_3:
 	mov a, r7				 ;fourth bit
 	anl a, #01H
 	cjne a, #01H, skip_4
 		mov a,r6
 		add a,#01H
+		jmp post_skip_4
 	skip_4:
 		mov a,r6
+	post_skip_4:
 	mov 32H, a
 	ret
 
