@@ -140,7 +140,7 @@
         <Mm>
           <WinNumber>1</WinNumber>
           <SubType>0</SubType>
-          <ItemText>D:30H</ItemText>
+          <ItemText>D:70H</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow1>
@@ -190,7 +190,7 @@
         <Wi>
           <IntNumber>0</IntNumber>
           <FirstString>P1</FirstString>
-          <SecondString>FF00000000000000000000000000000000E06F400000000000000000000000000000000050310000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000900000001000000000000000000F03F1900000000000000000000000000000000000000000000FF</SecondString>
+          <SecondString>FF00000000000000000000000000000000E06F400000000000000000000000000000000050310000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000900000001000000000000000000F03F1000000000000000000000000000000000000000000000FF</SecondString>
         </Wi>
       </LogicAnalyzers>
     </TargetOption>
@@ -205,12 +205,24 @@
     <File>
       <GroupNumber>1</GroupNumber>
       <FileNumber>1</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>.\q2.h</PathWithFileName>
+      <FilenameWithoutPath>q2.h</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>1</GroupNumber>
+      <FileNumber>2</FileNumber>
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\q1.a51</PathWithFileName>
-      <FilenameWithoutPath>q1.a51</FilenameWithoutPath>
+      <PathWithFileName>.\q2.a51</PathWithFileName>
+      <FilenameWithoutPath>q2.a51</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
