@@ -13,7 +13,7 @@ main:
 	mov P1, #00H		;configure as output
 	mov 40H, #0C3H		;to set TH,TL = C350 (hex) = 50000 (dec)
 	mov 41H, #50H		
-	mov 70H, #23H
+	mov 70H, #23H		;set the default values given in the table in handout
 	mov 71H, #45H
 	call subtract		;load 2s complement into 42H and 43H
 						;initial delay for lcd power up
@@ -24,23 +24,23 @@ main:
 	call delay
 	call delay
 	
-	forever:			;primary subroutine for q2
+	forever:							;primary subroutine for q2
 		level1:
-			mov a,70H
-			anl a, #0FH
+			mov a,70H	
+			anl a, #0FH					;take first digit
 			mov r7, a
 			swap a
-			mov P1, a
+			mov P1, a					;show on the LEDs
 			swap a
-			call bin_converter
-			call ascii_finder
-			mov a,#85h		 			;Put cursor on first row,2 column
+			call bin_converter			;convert digit to hex coded binary
+			call ascii_finder			;get the ASCII representation in 60H,61H,62H,64H memory locations
+			mov a,#85h		 			;put cursor on first row, fifth column
 			call lcd_command	 		;send command to LCD
 			call delay
 			mov dptr,#my_string1      	
 			call lcd_sendstring	    	;call text strings sending routine
 			call delay
-			mov a,#0C3h		  ;Put cursor on second row,4 column
+			mov a,#0C3h		  			;Put cursor on second row,third column
 			call lcd_command
 			call delay
 			mov dptr,#my_string5
@@ -57,7 +57,7 @@ main:
 			call delay_1s
 		level2:
 			mov a,70H
-			anl a, #0F0H
+			anl a, #0F0H				;take second digit
 			swap a
 			mov r7, a
 			swap a
@@ -65,13 +65,13 @@ main:
 			swap a
 			call bin_converter
 			call ascii_finder
-			mov a,#85h		 			;Put cursor on first row,2 column
+			mov a,#85h		 			
 			call lcd_command	 		;send command to LCD
 			call delay
 			mov dptr,#my_string2      	
 			call lcd_sendstring	    	;call text strings sending routine
 			call delay
-			mov a,#0C3h		  ;Put cursor on second row,4 column
+			mov a,#0C3h		  
 			call lcd_command
 			call delay
 			mov dptr,#my_string5
@@ -87,21 +87,21 @@ main:
 			acall lcd_senddata
 			call delay_1s
 		level3:
-			mov a,71H
-			anl a, #0FH
+			mov a,71H					
+			anl a, #0FH					;take third digit
 			mov r7, a
 			swap a
 			mov P1, a
 			swap a
 			call bin_converter
 			call ascii_finder
-			mov a,#85h		 			;Put cursor on first row,2 column
+			mov a,#85h		 			
 			call lcd_command	 		;send command to LCD
 			call delay
 			mov dptr,#my_string3      	
 			call lcd_sendstring	    	;call text strings sending routine
 			call delay
-			mov a,#0C3h		  ;Put cursor on second row,4 column
+			mov a,#0C3h		  
 			call lcd_command
 			call delay
 			mov dptr,#my_string5
@@ -117,8 +117,8 @@ main:
 			acall lcd_senddata
 			call delay_1s
 		level4:
-			mov a,71H
-			anl a, #0F0H
+			mov a,71H				
+			anl a, #0F0H				;take fourth digit
 			swap a
 			mov r7, a
 			swap a
@@ -126,13 +126,13 @@ main:
 			swap a
 			call bin_converter
 			call ascii_finder
-			mov a,#85h		 			;Put cursor on first row,2 column
+			mov a,#85h		 			
 			call lcd_command	 		;send command to LCD
 			call delay
 			mov dptr,#my_string4      	
 			call lcd_sendstring	    	;call text strings sending routine
 			call delay
-			mov a,#0C3h		  ;Put cursor on second row,4 column
+			mov a,#0C3h		  
 			call lcd_command
 			call delay
 			mov dptr,#my_string5
@@ -152,7 +152,7 @@ main:
 bin_converter:
 	mov a, r7				 ;first bit
 	anl a, #08H
-	cjne a, #08H, skip_1
+	cjne a, #08H, skip_1	 ;check if the first bit is 1
 		mov r6,#10H
 		jmp post_skip_1
 	skip_1:
@@ -160,7 +160,7 @@ bin_converter:
 	post_skip_1:
 	mov a, r7				 ;second bit
 	anl a, #04H
-	cjne a, #04H, skip_2
+	cjne a, #04H, skip_2	;check if the second bit is 1
 		mov a,r6
 		add a,#01H
 		jmp post_skip_2
@@ -170,7 +170,7 @@ bin_converter:
 	mov 31H, a
 	mov a, r7 				 ;third bit
 	anl a, #02H
-	cjne a, #02H, skip_3
+	cjne a, #02H, skip_3	;check if the third bit is 1
 		mov r6,#10H
 		jmp post_skip_3
 	skip_3:
@@ -178,7 +178,7 @@ bin_converter:
 	post_skip_3:
 	mov a, r7				 ;fourth bit
 	anl a, #01H
-	cjne a, #01H, skip_4
+	cjne a, #01H, skip_4	;check if the fourth bit is 1
 		mov a,r6
 		add a,#01H
 		jmp post_skip_4

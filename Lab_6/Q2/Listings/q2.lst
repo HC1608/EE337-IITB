@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:59:24 PAGE     1
+A51 MACRO ASSEMBLER  Q2                                                                   03/04/2022 00:18:30 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -23,7 +23,7 @@ LOC  OBJ            LINE     SOURCE
 0033 759000           13             mov P1, #00H            ;configure as output
 0036 7540C3           14             mov 40H, #0C3H          ;to set TH,TL = C350 (hex) = 50000 (dec)
 0039 754150           15             mov 41H, #50H           
-003C 757023           16             mov 70H, #23H
+003C 757023           16             mov 70H, #23H           ;set the default values given in the table in handout
 003F 757145           17             mov 71H, #45H
 0042 31BB             18             call subtract           ;load 2s complement into 42H and 43H
                       19                                                     ;initial delay for lcd power up
@@ -34,24 +34,28 @@ LOC  OBJ            LINE     SOURCE
 004C 516B             24             call delay
 004E 516B             25             call delay
                       26             
-0050                  27             forever:                        ;primary subroutine for q2
+0050                  27             forever:                                                        ;primary subroutine
+                              for q2
 0050                  28                     level1:
-0050 E570             29                             mov a,70H
-0052 540F             30                             anl a, #0FH
+0050 E570             29                             mov a,70H       
+0052 540F             30                             anl a, #0FH                                     ;take first digit
 0054 FF               31                             mov r7, a
 0055 C4               32                             swap a
-0056 F590             33                             mov P1, a
+0056 F590             33                             mov P1, a                                       ;show on the LEDs
 0058 C4               34                             swap a
-0059 3138             35                             call bin_converter
-005B 316D             36                             call ascii_finder
-005D 7485             37                             mov a,#85h                                      ;Put cursor on firs
-                             t row,2 column
+0059 3138             35                             call bin_converter                      ;convert digit to hex coded
+                              binary
+005B 316D             36                             call ascii_finder                       ;get the ASCII representati
+                             on in 60H,61H,62H,64H memory locations
+005D 7485             37                             mov a,#85h                                      ;put cursor on firs
+                             t row, fifth column
 005F 513D             38                             call lcd_command                        ;send command to LCD
 0061 516B             39                             call delay
 0063 900300           40                             mov dptr,#my_string1            
 0066 515D             41                             call lcd_sendstring             ;call text strings sending routine
 0068 516B             42                             call delay
-006A 74C3             43                             mov a,#0C3h               ;Put cursor on second row,4 column
+006A 74C3             43                             mov a,#0C3h                                     ;Put cursor on seco
+                             nd row,third column
 006C 513D             44                             call lcd_command
 006E 516B             45                             call delay
 0070 900320           46                             mov dptr,#my_string5
@@ -61,16 +65,16 @@ LOC  OBJ            LINE     SOURCE
 0079 514C             50                             acall lcd_senddata
 007B E561             51                             mov a,61H
 007D 514C             52                             acall lcd_senddata
+A51 MACRO ASSEMBLER  Q2                                                                   03/04/2022 00:18:30 PAGE     2
+
 007F E562             53                             mov a,62H
 0081 514C             54                             acall lcd_senddata
 0083 E563             55                             mov a,63H
 0085 514C             56                             acall lcd_senddata
-A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:59:24 PAGE     2
-
 0087 31A4             57                             call delay_1s
 0089                  58                     level2:
 0089 E570             59                             mov a,70H
-008B 54F0             60                             anl a, #0F0H
+008B 54F0             60                             anl a, #0F0H                            ;take second digit
 008D C4               61                             swap a
 008E FF               62                             mov r7, a
 008F C4               63                             swap a
@@ -78,14 +82,13 @@ LOC  OBJ            LINE     SOURCE
 0092 C4               65                             swap a
 0093 3138             66                             call bin_converter
 0095 316D             67                             call ascii_finder
-0097 7485             68                             mov a,#85h                                      ;Put cursor on firs
-                             t row,2 column
+0097 7485             68                             mov a,#85h                                      
 0099 513D             69                             call lcd_command                        ;send command to LCD
 009B 516B             70                             call delay
 009D 900308           71                             mov dptr,#my_string2            
 00A0 515D             72                             call lcd_sendstring             ;call text strings sending routine
 00A2 516B             73                             call delay
-00A4 74C3             74                             mov a,#0C3h               ;Put cursor on second row,4 column
+00A4 74C3             74                             mov a,#0C3h               
 00A6 513D             75                             call lcd_command
 00A8 516B             76                             call delay
 00AA 900320           77                             mov dptr,#my_string5
@@ -101,22 +104,21 @@ LOC  OBJ            LINE     SOURCE
 00BF 514C             87                             acall lcd_senddata
 00C1 31A4             88                             call delay_1s
 00C3                  89                     level3:
-00C3 E571             90                             mov a,71H
-00C5 540F             91                             anl a, #0FH
+00C3 E571             90                             mov a,71H                                       
+00C5 540F             91                             anl a, #0FH                                     ;take third digit
 00C7 FF               92                             mov r7, a
 00C8 C4               93                             swap a
 00C9 F590             94                             mov P1, a
 00CB C4               95                             swap a
 00CC 3138             96                             call bin_converter
 00CE 316D             97                             call ascii_finder
-00D0 7485             98                             mov a,#85h                                      ;Put cursor on firs
-                             t row,2 column
+00D0 7485             98                             mov a,#85h                                      
 00D2 513D             99                             call lcd_command                        ;send command to LCD
 00D4 516B            100                             call delay
 00D6 900310          101                             mov dptr,#my_string3            
 00D9 515D            102                             call lcd_sendstring             ;call text strings sending routine
 00DB 516B            103                             call delay
-00DD 74C3            104                             mov a,#0C3h               ;Put cursor on second row,4 column
+00DD 74C3            104                             mov a,#0C3h               
 00DF 513D            105                             call lcd_command
 00E1 516B            106                             call delay
 00E3 900320          107                             mov dptr,#my_string5
@@ -131,11 +133,11 @@ LOC  OBJ            LINE     SOURCE
 00F6 E563            116                             mov a,63H
 00F8 514C            117                             acall lcd_senddata
 00FA 31A4            118                             call delay_1s
-00FC                 119                     level4:
-00FC E571            120                             mov a,71H
-A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:59:24 PAGE     3
+A51 MACRO ASSEMBLER  Q2                                                                   03/04/2022 00:18:30 PAGE     3
 
-00FE 54F0            121                             anl a, #0F0H
+00FC                 119                     level4:
+00FC E571            120                             mov a,71H                               
+00FE 54F0            121                             anl a, #0F0H                            ;take fourth digit
 0100 C4              122                             swap a
 0101 FF              123                             mov r7, a
 0102 C4              124                             swap a
@@ -143,14 +145,13 @@ LOC  OBJ            LINE     SOURCE
 0105 C4              126                             swap a
 0106 3138            127                             call bin_converter
 0108 316D            128                             call ascii_finder
-010A 7485            129                             mov a,#85h                                      ;Put cursor on firs
-                             t row,2 column
+010A 7485            129                             mov a,#85h                                      
 010C 513D            130                             call lcd_command                        ;send command to LCD
 010E 516B            131                             call delay
 0110 900318          132                             mov dptr,#my_string4            
 0113 515D            133                             call lcd_sendstring             ;call text strings sending routine
 0115 516B            134                             call delay
-0117 74C3            135                             mov a,#0C3h               ;Put cursor on second row,4 column
+0117 74C3            135                             mov a,#0C3h               
 0119 513D            136                             call lcd_command
 011B 516B            137                             call delay
 011D 900320          138                             mov dptr,#my_string5
@@ -170,7 +171,7 @@ LOC  OBJ            LINE     SOURCE
 0138                 152     bin_converter:
 0138 EF              153             mov a, r7                                ;first bit
 0139 5408            154             anl a, #08H
-013B B40804          155             cjne a, #08H, skip_1
+013B B40804          155             cjne a, #08H, skip_1     ;check if the first bit is 1
 013E 7E10            156                     mov r6,#10H
 0140 8002            157                     jmp post_skip_1
 0142                 158             skip_1:
@@ -178,7 +179,7 @@ LOC  OBJ            LINE     SOURCE
 0144                 160             post_skip_1:
 0144 EF              161             mov a, r7                                ;second bit
 0145 5404            162             anl a, #04H
-0147 B40405          163             cjne a, #04H, skip_2
+0147 B40405          163             cjne a, #04H, skip_2    ;check if the second bit is 1
 014A EE              164                     mov a,r6
 014B 2401            165                     add a,#01H
 014D 8001            166                     jmp post_skip_2
@@ -188,7 +189,7 @@ LOC  OBJ            LINE     SOURCE
 0150 F531            170             mov 31H, a
 0152 EF              171             mov a, r7                                ;third bit
 0153 5402            172             anl a, #02H
-0155 B40204          173             cjne a, #02H, skip_3
+0155 B40204          173             cjne a, #02H, skip_3    ;check if the third bit is 1
 0158 7E10            174                     mov r6,#10H
 015A 8002            175                     jmp post_skip_3
 015C                 176             skip_3:
@@ -196,13 +197,13 @@ LOC  OBJ            LINE     SOURCE
 015E                 178             post_skip_3:
 015E EF              179             mov a, r7                                ;fourth bit
 015F 5401            180             anl a, #01H
-0161 B40105          181             cjne a, #01H, skip_4
+0161 B40105          181             cjne a, #01H, skip_4    ;check if the fourth bit is 1
 0164 EE              182                     mov a,r6
 0165 2401            183                     add a,#01H
 0167 8001            184                     jmp post_skip_4
-0169                 185             skip_4:
-A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:59:24 PAGE     4
+A51 MACRO ASSEMBLER  Q2                                                                   03/04/2022 00:18:30 PAGE     4
 
+0169                 185             skip_4:
 0169 EE              186                     mov a,r6
 016A                 187             post_skip_4:
 016A F532            188             mov 32H, a
@@ -268,9 +269,9 @@ LOC  OBJ            LINE     SOURCE
 01B8 C28D            248                     clr TF0                 ;clear flag bit
 01BA 22              249                     ret
                      250     
-01BB                 251     subtract:                               ;subroutine to perform subtraction of a 16 bit numb
-A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:59:24 PAGE     5
+A51 MACRO ASSEMBLER  Q2                                                                   03/04/2022 00:18:30 PAGE     5
 
+01BB                 251     subtract:                               ;subroutine to perform subtraction of a 16 bit numb
                              er from FFFFH 
 01BB A840            252             mov r0, 40H
 01BD A941            253             mov r1, 41H
@@ -336,9 +337,9 @@ LOC  OBJ            LINE     SOURCE
                                        
 024C                 312      lcd_senddata:
 024C F5A0            313              mov   LCD_data,A     ;Move the command to LCD port
-024E D280            314              setb  LCD_rs         ;Selected data register
-A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:59:24 PAGE     6
+A51 MACRO ASSEMBLER  Q2                                                                   03/04/2022 00:18:30 PAGE     6
 
+024E D280            314              setb  LCD_rs         ;Selected data register
 0250 C281            315              clr   LCD_rw         ;We are writing
 0252 D282            316              setb  LCD_en         ;Enable H->L
 0254 516B            317                      acall delay
@@ -395,7 +396,7 @@ LOC  OBJ            LINE     SOURCE
 0324 653A2000                
                      362                              
                      363     end     
-A51 MACRO ASSEMBLER  Q2                                                                   03/03/2022 23:59:24 PAGE     7
+A51 MACRO ASSEMBLER  Q2                                                                   03/04/2022 00:18:30 PAGE     7
 
 SYMBOL TABLE LISTING
 ------ ----- -------
