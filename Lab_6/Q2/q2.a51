@@ -29,7 +29,9 @@ main:
 			mov a,70H
 			anl a, #0FH
 			mov r7, a
+			swap a
 			mov P1, a
+			swap a
 			call bin_converter
 			call ascii_finder
 			mov a,#85h		 			;Put cursor on first row,2 column
@@ -58,7 +60,9 @@ main:
 			anl a, #0F0H
 			swap a
 			mov r7, a
+			swap a
 			mov P1, a
+			swap a
 			call bin_converter
 			call ascii_finder
 			mov a,#85h		 			;Put cursor on first row,2 column
@@ -86,7 +90,9 @@ main:
 			mov a,71H
 			anl a, #0FH
 			mov r7, a
+			swap a
 			mov P1, a
+			swap a
 			call bin_converter
 			call ascii_finder
 			mov a,#85h		 			;Put cursor on first row,2 column
@@ -115,7 +121,9 @@ main:
 			anl a, #0F0H
 			swap a
 			mov r7, a
+			swap a
 			mov P1, a
+			swap a
 			call bin_converter
 			call ascii_finder
 			mov a,#85h		 			;Put cursor on first row,2 column
