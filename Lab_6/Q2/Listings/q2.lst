@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  Q2                                                                   03/04/2022 00:18:30 PAGE     1
+A51 MACRO ASSEMBLER  Q2                                                                   03/07/2022 14:20:21 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -65,7 +65,7 @@ LOC  OBJ            LINE     SOURCE
 0079 514C             50                             acall lcd_senddata
 007B E561             51                             mov a,61H
 007D 514C             52                             acall lcd_senddata
-A51 MACRO ASSEMBLER  Q2                                                                   03/04/2022 00:18:30 PAGE     2
+A51 MACRO ASSEMBLER  Q2                                                                   03/07/2022 14:20:21 PAGE     2
 
 007F E562             53                             mov a,62H
 0081 514C             54                             acall lcd_senddata
@@ -133,7 +133,7 @@ LOC  OBJ            LINE     SOURCE
 00F6 E563            116                             mov a,63H
 00F8 514C            117                             acall lcd_senddata
 00FA 31A4            118                             call delay_1s
-A51 MACRO ASSEMBLER  Q2                                                                   03/04/2022 00:18:30 PAGE     3
+A51 MACRO ASSEMBLER  Q2                                                                   03/07/2022 14:20:21 PAGE     3
 
 00FC                 119                     level4:
 00FC E571            120                             mov a,71H                               
@@ -201,7 +201,7 @@ LOC  OBJ            LINE     SOURCE
 0164 EE              182                     mov a,r6
 0165 2401            183                     add a,#01H
 0167 8001            184                     jmp post_skip_4
-A51 MACRO ASSEMBLER  Q2                                                                   03/04/2022 00:18:30 PAGE     4
+A51 MACRO ASSEMBLER  Q2                                                                   03/07/2022 14:20:21 PAGE     4
 
 0169                 185             skip_4:
 0169 EE              186                     mov a,r6
@@ -269,7 +269,7 @@ LOC  OBJ            LINE     SOURCE
 01B8 C28D            248                     clr TF0                 ;clear flag bit
 01BA 22              249                     ret
                      250     
-A51 MACRO ASSEMBLER  Q2                                                                   03/04/2022 00:18:30 PAGE     5
+A51 MACRO ASSEMBLER  Q2                                                                   03/07/2022 14:20:21 PAGE     5
 
 01BB                 251     subtract:                               ;subroutine to perform subtraction of a 16 bit numb
                              er from FFFFH 
@@ -337,7 +337,7 @@ LOC  OBJ            LINE     SOURCE
                                        
 024C                 312      lcd_senddata:
 024C F5A0            313              mov   LCD_data,A     ;Move the command to LCD port
-A51 MACRO ASSEMBLER  Q2                                                                   03/04/2022 00:18:30 PAGE     6
+A51 MACRO ASSEMBLER  Q2                                                                   03/07/2022 14:20:21 PAGE     6
 
 024E D280            314              setb  LCD_rs         ;Selected data register
 0250 C281            315              clr   LCD_rw         ;We are writing
@@ -396,7 +396,7 @@ LOC  OBJ            LINE     SOURCE
 0324 653A2000                
                      362                              
                      363     end     
-A51 MACRO ASSEMBLER  Q2                                                                   03/04/2022 00:18:30 PAGE     7
+A51 MACRO ASSEMBLER  Q2                                                                   03/07/2022 14:20:21 PAGE     7
 
 SYMBOL TABLE LISTING
 ------ ----- -------
