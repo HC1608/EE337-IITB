@@ -14,25 +14,26 @@ org 30H
 main:
 	mov TMOD, #01H						;set timer0 in mode 1
 	mov P1, #0FH						;configure switches as input
-	call delay							;initial delay for lcd power up
-	call delay
-	call lcd_init 						;initialise LCD
-	call delay
-	call delay
 	forever:
+		call delay						;initial delay for lcd power up
+		call delay
+		call lcd_init 					;initialise LCD
+		call delay
+		call delay
 		mov r0, #0H 					;to hold the number of times timer overflows
 		mov TMOD, #01H					;set timer0 in mode 1
-		mov a,#85h		 				;put cursor on first row, fifth column
+		mov a,#83H		 				;put cursor on first row, third column
 		call lcd_command	 			;send command to LCD
 		call delay
 		mov dptr,#my_string1      	
 		call lcd_sendstring	    		;call text strings sending routine
 		call delay
-		mov a,#0C3h		  				;Put cursor on second row,third column
+		mov a,#0C3H	  					;Put cursor on second row,third column
 		call lcd_command
 		call delay
 		mov dptr,#my_string2
 		call lcd_sendstring	    		;call text strings sending routine
+		clr P1.4						;turnoff LED
 		call delay_1s
 		call delay_1s					;wait 2s
 		setb P1.4						;turnon LED
@@ -47,13 +48,13 @@ main:
 		waspressed:
 			mov r1, TH0
 			mov r2, TL0
-			mov a,#85h		 			;put cursor on first row, fifth column
+			mov a,#82H		 			;put cursor on first row, fifth column
 			call lcd_command	 		;send command to LCD
 			call delay
 			mov dptr,#my_string3      	
 			call lcd_sendstring	    	;call text strings sending routine
 			call delay
-			mov a,#0C3h		  			;Put cursor on second row,third column
+			mov a,#0C0H		  			;Put cursor on second row,third column
 			call lcd_command
 			call delay
 			mov dptr,#my_string4
