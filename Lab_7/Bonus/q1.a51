@@ -33,7 +33,6 @@ main:
 		call delay
 		mov dptr,#my_string2
 		call lcd_sendstring	    		;call text strings sending routine
-		clr P1.4						;turnoff LED
 		call delay_1s
 		call delay_1s					;wait 2s
 		setb P1.4						;turnon LED
@@ -46,8 +45,11 @@ main:
 		waitup:
 			jnb P1.0, waitup			;wait until the switch is pressed
 		waspressed:
+			clr TR0
+			clr P1.4					;turnoff LED
 			mov r1, TH0
 			mov r2, TL0
+			call convert_to_ms
 			mov a,#82H		 			;put cursor on first row, fifth column
 			call lcd_command	 		;send command to LCD
 			call delay
@@ -57,29 +59,25 @@ main:
 			mov a,#0C0H		  			;Put cursor on second row,third column
 			call lcd_command
 			call delay
+			mov 31H, 60H
+			call ascii_finder
+			mov a,64H
+			acall lcd_senddata
+			mov 31H, 61H
+			call ascii_finder
+			mov a,64H
+			acall lcd_senddata
+			mov 31H, 62H
+			call ascii_finder
+			mov a,64H
+			acall lcd_senddata
+			mov 31H, 63H
+			call ascii_finder
+			mov a,64H
+			acall lcd_senddata
 			mov dptr,#my_string4
 			call lcd_sendstring	    	;call text strings sending routine
 			call delay
-			mov 31H, r0
-			call ascii_finder
-			mov a,60H
-			acall lcd_senddata
-			mov a,61H
-			acall lcd_senddata
-			mov a,#20H					;space
-			acall lcd_senddata
-			mov 31H, r1
-			call ascii_finder
-			mov a,60H
-			acall lcd_senddata
-			mov a,61H
-			acall lcd_senddata
-			mov 31H, r2
-			call ascii_finder
-			mov a,60H
-			acall lcd_senddata
-			mov a,61H
-			acall lcd_senddata
 			clr EA						;remove interrupt mode from timer0
 			clr ET0
 			call delay_1s
@@ -91,37 +89,16 @@ main:
 
 ascii_finder:
 	push 1
-	push 2
 	mov r1, 31H
 	mov a, r1
-	mov b, #10H
-	div ab; divide by 10H to get both digits 
-	mov r2, a; the first digit
-	mov r3, b; the second digit
-	mov a, r2
 	call check_the_val
-	mov 60H, a; move the accumulator to 60H
-	mov a, r3
-	call check_the_val
-	mov 61H, a; move the accumulator to 61H
-	pop 2
+	mov 64H, a; move the accumulator to 61H
 	pop 1
 	ret
 
 check_the_val:
-		cjne a,#9H,unequal; check if equal to 9
 		add a,#30H
 		ret
-		unequal:
-			jc smaller; check if smaller than 9
-			;greater than 9 case
-			;add 37H to get ASCII for A-F
-			add a, #37H
-			ret
-			smaller:
-				;add 30H to get ASCII for 0-9
-				add a, #30H
-				ret
 
 timer_jump:
 	inc R0				;the timer has overflown so increment R0
@@ -153,19 +130,87 @@ convert_to_ms:
 	mov a, r0
 	mov b, #21H			;for overflows, timer will take 65,535/2MHz = 32767us ~ 33ms = 22H
 	mul ab
-	mov 50H, a
-	mov 51H, b
-	mov 40H, r1
-	mov 41H, r2
-	call subtract		;stores number of timer cycles in 42H,43H
-	mov a, 42H			;we make an approximation that the first bit is total number/100H or total number/256 so
-	mov b, #8H			;total number/2000 ~ total number/256*8 hence the time in ms ~ the value in 42H divided by 8H
-	div ab
-	add a, 51H			;lower bit of overflows
 	mov 51H, a
-	mov a, 50H
-	addc a, #0H
-	mov 50H, a
+	mov 50H, b
+	mov r1, 50H
+	mov r0, 51H
+	mov r3,#00H
+	mov r4,#0AH
+	call UDIV16
+	mov 63H,r2
+	mov r3,#00H
+	mov r4,#0AH
+	call UDIV16
+	mov 62H,r2
+	mov r3,#00H
+	mov r4,#0AH
+	call UDIV16
+	mov 61H,r2
+	mov r3,#00H
+	mov r4,#0AH
+	call UDIV16
+	mov 60H,r2
+	ret
+	
+;====================================================================
+; subroutine UDIV16
+; 16-Bit / 16-Bit to 16-Bit Quotient & Remainder Unsigned Divide
+;
+; input:    r1, r0 = Dividend X
+;           r3, r2 = Divisor Y
+;
+; output:   r1, r0 = quotient Q of division Q = X / Y
+;           r3, r2 = remainder 
+;
+; alters:   acc, B, dpl, dph, r4, r5, r6, r7, flags
+;====================================================================
+
+UDIV16:        mov     r7, #0          ; clear partial remainder
+               mov     r6, #0
+               mov     B, #16          ; set loop count
+
+div_loop:      clr     C               ; clear carry flag
+               mov     a, r0           ; shift the highest bit of
+               rlc     a               ; the dividend into...
+               mov     r0, a
+               mov     a, r1
+               rlc     a
+               mov     r1, a
+               mov     a, r6           ; ... the lowest bit of the
+               rlc     a               ; partial remainder
+               mov     r6, a
+               mov     a, r7
+               rlc     a
+               mov     r7, a
+               mov     a, r6           ; trial subtract divisor
+               clr     C               ; from partial remainder
+               subb    a, r2
+               mov     dpl, a
+               mov     a, r7
+               subb    a, r3
+               mov     dph, a
+               cpl     C               ; complement external borrow
+               jnc     div_1           ; update partial remainder if
+                                       ; borrow
+               mov     r7, dph         ; update partial remainder
+               mov     r6, dpl
+div_1:         mov     a, r4           ; shift result bit into partial
+               rlc     a               ; quotient
+               mov     r4, a
+               mov     a, r5
+               rlc     a
+               mov     r5, a
+               djnz    B, div_loop
+               mov     a, r5           ; put quotient in r0, and r1
+               mov     r1, a
+               mov     a, r4
+               mov     r0, a
+               mov     a, r7           ; get remainder, saved before the
+               mov     r3, a           ; last subtraction
+               mov     a, r6
+               mov     r2, a
+               ret
+
 subtract:				;subroutine to perform subtraction of a 16 bit number from FFFFH 
 	push 0
 	push 1
@@ -274,10 +319,7 @@ my_string2:
 DB   "if LED glows", 00H
 	
 my_string3:
-DB   "Reaction Time", 00H
-	
-my_string4:
-DB	"Count is ", 00H	
+DB   "Reaction Time", 00H	
 
 my_string4:
 DB	" milliseconds", 00H	

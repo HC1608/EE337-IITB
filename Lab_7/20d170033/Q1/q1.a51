@@ -45,6 +45,7 @@ main:
 		waitup:
 			jnb P1.0, waitup			;wait until the switch is pressed
 		waspressed:
+			clr TR0
 			clr P1.4					;turnoff LED
 			mov r1, TH0
 			mov r2, TL0
