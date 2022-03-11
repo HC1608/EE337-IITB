@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  Q1                                                                   03/11/2022 02:12:48 PAGE     1
+A51 MACRO ASSEMBLER  Q1                                                                   03/11/2022 18:41:11 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -49,23 +49,23 @@ LOC  OBJ            LINE     SOURCE
 0056 516B             33                     call delay
 0058 90030B           34                     mov dptr,#my_string2
 005B 515D             35                     call lcd_sendstring                     ;call text strings sending routine
-005D C294             36                     clr P1.4                                                ;turnoff LED
-005F 3101             37                     call delay_1s
-0061 3101             38                     call delay_1s                                   ;wait 2s
-0063 D294             39                     setb P1.4                                               ;turnon LED
-                      40                                                                                     ;setup time
+005D 3101             36                     call delay_1s
+005F 3101             37                     call delay_1s                                   ;wait 2s
+0061 D294             38                     setb P1.4                                               ;turnon LED
+                      39                                                                                     ;setup time
                              r0 in interrupt mode
-0065 D2AF             41                     setb EA
-0067 D2A9             42                     setb ET0
-0069 758C00           43                     mov TH0, #0H
-006C 758A00           44                     mov TL0, #0H
-006F D28C             45                     setb TR0                                                ;start counting
-0071                  46                     waitup:
-0071 3090FD           47                             jnb P1.0, waitup                        ;wait until the switch is p
+0063 D2AF             40                     setb EA
+0065 D2A9             41                     setb ET0
+0067 758C00           42                     mov TH0, #0H
+006A 758A00           43                     mov TL0, #0H
+006D D28C             44                     setb TR0                                                ;start counting
+006F                  45                     waitup:
+006F 3090FD           46                             jnb P1.0, waitup                        ;wait until the switch is p
                              ressed
-0074                  48                     waspressed:
+0072                  47                     waspressed:
+0072 C294             48                             clr P1.4                                        ;turnoff LED
 0074 A98C             49                             mov r1, TH0
-A51 MACRO ASSEMBLER  Q1                                                                   03/11/2022 02:12:48 PAGE     2
+A51 MACRO ASSEMBLER  Q1                                                                   03/11/2022 18:41:11 PAGE     2
 
 0076 AA8A             50                             mov r2, TL0
 0078 7482             51                             mov a,#82H                                      ;put cursor on firs
@@ -133,7 +133,7 @@ LOC  OBJ            LINE     SOURCE
                      110     
 00E7                 111     check_the_val:
 00E7 B40903          112                     cjne a,#9H,unequal; check if equal to 9
-A51 MACRO ASSEMBLER  Q1                                                                   03/11/2022 02:12:48 PAGE     3
+A51 MACRO ASSEMBLER  Q1                                                                   03/11/2022 18:41:11 PAGE     3
 
 00EA 2430            113                     add a,#30H
 00EC 22              114                     ret
@@ -201,7 +201,7 @@ LOC  OBJ            LINE     SOURCE
 0227 516B            175                      acall delay
 0229 C282            176              clr   LCD_en
                      177              
-A51 MACRO ASSEMBLER  Q1                                                                   03/11/2022 02:12:48 PAGE     4
+A51 MACRO ASSEMBLER  Q1                                                                   03/11/2022 18:41:11 PAGE     4
 
 022B 516B            178                      acall delay
                      179     
@@ -269,7 +269,7 @@ LOC  OBJ            LINE     SOURCE
 0300                 238     my_string1:
 0300 546F6767        239     DB   "Toggle SW1", 00H
 0304 6C652053                
-A51 MACRO ASSEMBLER  Q1                                                                   03/11/2022 02:12:48 PAGE     5
+A51 MACRO ASSEMBLER  Q1                                                                   03/11/2022 18:41:11 PAGE     5
 
 0308 573100                  
                      240             
@@ -293,7 +293,7 @@ LOC  OBJ            LINE     SOURCE
                      250     end     
                              
                                      
-A51 MACRO ASSEMBLER  Q1                                                                   03/11/2022 02:12:48 PAGE     6
+A51 MACRO ASSEMBLER  Q1                                                                   03/11/2022 18:41:11 PAGE     6
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -341,8 +341,8 @@ TL0 . . . . . . . .  D ADDR   008AH   A
 TMOD. . . . . . . .  D ADDR   0089H   A   
 TR0 . . . . . . . .  B ADDR   0088H.4 A   
 UNEQUAL . . . . . .  C ADDR   00EDH   A   
-WAITUP. . . . . . .  C ADDR   0071H   A   
-WASPRESSED. . . . .  C ADDR   0074H   A   
+WAITUP. . . . . . .  C ADDR   006FH   A   
+WASPRESSED. . . . .  C ADDR   0072H   A   
 
 
 REGISTER BANK(S) USED: 0 

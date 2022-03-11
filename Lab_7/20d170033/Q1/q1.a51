@@ -33,7 +33,6 @@ main:
 		call delay
 		mov dptr,#my_string2
 		call lcd_sendstring	    		;call text strings sending routine
-		clr P1.4						;turnoff LED
 		call delay_1s
 		call delay_1s					;wait 2s
 		setb P1.4						;turnon LED
@@ -46,6 +45,7 @@ main:
 		waitup:
 			jnb P1.0, waitup			;wait until the switch is pressed
 		waspressed:
+			clr P1.4					;turnoff LED
 			mov r1, TH0
 			mov r2, TL0
 			mov a,#82H		 			;put cursor on first row, fifth column
