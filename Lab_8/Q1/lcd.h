@@ -6,9 +6,9 @@
 void msdelay(unsigned int);																	//fn takes integer value as an input and generates corresponding delay in milli seconds
 void lcd_init(void);																				//Initialize LCD
 void lcd_cmd(unsigned int i);																//Sends commands to lcd
-void lcd_char(unsigned char ch);														//display character on a lcd corresponding to input ascii
+void lcd_write_char(unsigned char ch);											//display character on a lcd corresponding to input ascii
 void lcd_write_string(unsigned char *s);										//takes pointer of a string which ends with null and display on a lcd 
-void int_to_string(unsigned int,unsigned char *temp_string);//convert unsigned int to string of corresponding decimal value 
+//void int_to_string(unsigned int,unsigned char *temp_string);//convert unsigned int to string of corresponding decimal value 
 
 //Signals to LCD
 sbit RS=P0^0;	//Register select

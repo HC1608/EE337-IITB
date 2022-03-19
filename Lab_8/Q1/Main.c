@@ -2,39 +2,48 @@
 #include "lcd.h"				//Header file with LCD interfacing functions
 #include "MorseCode.h"	//Header file for Morse Code 
 
-sbit LED=P1^7;
 /*
 Port P0.7 is used for the audio signal output
 */	
 //Main function
-void main(void)
+void main()
 {
 	//Call initialization functions
 	// Read input nibble here
-	while(1){
-		lcd_init();
-		if(P1^0==1){
-			morsea();
-			lcd_write_string('A');
-		}
-		else if(P1^1==1){
-			morseb();
-			lcd_write_string('B');
-		}
-		else if(P1^2==1){
-			morsec();
-			lcd_write_string('C');
-		}
-		else if(P1^3==1){
-			morsed();
-			lcd_write_string('D');
-		}
-		else{
-			morsee();
-			lcd_write_string('E');
-		}
+	P1 = 0x0F;
+	lcd_init();
+	if(P1_0==1){
+		lcd_cmd(0x88);
+		lcd_write_char('A');
+		morse_a();
 		msdelay(1000);
 	}
+	else if(P1_1==1){
+		lcd_cmd(0x88);
+		lcd_write_char('B');
+		morse_b();
+		msdelay(1000);
+	}
+	else if(P1_2==1){
+		lcd_cmd(0x88);
+		lcd_write_char('C');
+		morse_c();
+		msdelay(1000);
+	}
+	else if(P1_3==1){
+		lcd_cmd(0x88);
+		lcd_write_char('D');
+		morse_d();
+		msdelay(1000);
+	}
+	else{
+		lcd_cmd(0x88);
+		lcd_write_char('E');
+		morse_e();
+		msdelay(1000);
+	}
+	lcd_init();
+	while(1){}
 	// Insert Priority Logic
 	// Inside each condition, call the functions from MorseCode.h. Fill functions in MorseCode.h
 	// Write to LCD using function lcd_write_string() in side the condition as well

@@ -17,7 +17,7 @@ void morse_e(void);																	//morse code for E
 void dashtone(void) 
 { 
 	unsigned i;
-	for(i=0;i<750;i++){
+	for(i=0;i<1500;i++){
 	P0_7 = ~P0_7;
 	msdelay(1); 		
 		/* This function is a welcome change over the hardwork in the delay subroutines in earlier labs :D*/
@@ -27,21 +27,21 @@ void dottone(void)
 { 
   // Similar to dashtone
 	unsigned i;
-	for(i=0;i<1500;i++){
+	for(i=0;i<750;i++){
 	P0_7 = ~P0_7;
 	msdelay(1); 		
 		/* This function is a welcome change over the hardwork in the delay subroutines in earlier labs :D*/
 	}
 }
 
-void morsea(void)// .-
+void morse_a(void)// .-
 {
 	dottone();
 	msdelay(1000);
 	dashtone();
 }
 
-void morseb(void)// -...
+void morse_b(void)// -...
 {
 // Insert
 	dashtone();
@@ -52,7 +52,7 @@ void morseb(void)// -...
 	msdelay(1000);
 	dottone();
 }
-void morsec(void)// -.-.
+void morse_c(void)// -.-.
 {
 // Insert
 	dashtone();
@@ -63,7 +63,7 @@ void morsec(void)// -.-.
 	msdelay(1000);
 	dottone();
 }
-void morsed(void)// -..
+void morse_d(void)// -..
 {
 // Insert
 	dashtone();
@@ -72,7 +72,7 @@ void morsed(void)// -..
 	msdelay(1000);
 	dottone();
 }
-void morsee(void)// .
+void morse_e(void)// .
 {
 // Insert
 	dottone();
