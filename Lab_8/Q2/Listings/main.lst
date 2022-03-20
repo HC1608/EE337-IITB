@@ -1,0 +1,122 @@
+C51 COMPILER V9.60.0.0   MAIN                                                              03/20/2022 14:46:55 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <at89c5131.h>
+   2          #include "lcd.h"    //Header file with LCD interfacing functions
+   3          #include "serial.c" //C file with UART interfacing functions
+   4          
+   5          sbit LED=P1^7;
+   6          
+   7          //Test function definitions
+   8          
+   9          /************************************************
+  10             lcd_test():
+  11            LCD test function that gets called when
+  12            '1' is received from UART
+  13            Prints "LCD Ok" on LCD. After 4 seconds
+  14            LCD is cleared
+  15          ************************************************/
+  16          void lcd_test(void)
+  17          {
+  18   1        lcd_cmd(0x80);
+  19   1        lcd_write_string("Testing LCD...");
+  20   1        msdelay(2000);
+  21   1        lcd_cmd(0x01);
+  22   1        lcd_write_string("LCD is Okay!");
+  23   1        msdelay(2000);
+  24   1        lcd_cmd(0x01);
+  25   1      } 
+  26          
+  27          /************************************************
+  28             led_test():
+  29            LED test code. Update this function
+  30            to test LEDs on P1.7-P1.4 by blinking
+  31            them for a few times.
+  32          ************************************************/
+  33          void led_test(void)
+  34          {
+  35   1      // Write your testing code here.lcd_cmd(0x80);
+  36   1        lcd_cmd(0x80);
+  37   1        lcd_write_string("Testing LEDs...");
+  38   1        P1 |= 0x80;
+  39   1        msdelay(1000);
+  40   1        P1 |= 0x40;
+  41   1        msdelay(1000);
+  42   1        P1 |= 0x20;
+  43   1        msdelay(1000);
+  44   1        P1 |= 0x10;
+  45   1        msdelay(1000);
+  46   1        lcd_cmd(0x01);
+  47   1        lcd_write_string("LEDs are Okay!");
+  48   1        P1 &= 0x0F;
+  49   1        msdelay(1000);
+  50   1        lcd_cmd(0x01);
+  51   1      }
+  52          
+  53          
+  54          //Main function
+C51 COMPILER V9.60.0.0   MAIN                                                              03/20/2022 14:46:55 PAGE 2   
+
+  55          void main(void)
+  56          {
+  57   1        unsigned char ch=0;
+  58   1        
+  59   1        //Initialize port P1 for output from P1.7-P1.4
+  60   1        P1 = 0x0F;
+  61   1        
+  62   1        //Call initialization functions
+  63   1        lcd_init();
+  64   1        uart_init();
+  65   1        
+  66   1        //These strings will be printed in terminal software
+  67   1        transmit_string("************************\r\n");
+  68   1        transmit_string("******8051 Tests********\r\n");
+  69   1        transmit_string("************************\r\n");
+  70   1        transmit_string("Press 1 for LCD test\r\n");
+  71   1        transmit_string("Press 2 for LED test\r\n");
+  72   1        
+  73   1        while(1)
+  74   1        {
+  75   2            //Receive a character
+  76   2            ch = receive_char();
+  77   2          
+  78   2            //Decide which test function to run based on character sent
+  79   2            //Displays the string on the terminal software
+  80   2            switch(ch)
+  81   2            {
+  82   3              case '1':lcd_test();
+  83   3                       transmit_string("LCD tested\r\n");
+  84   3                       break;
+  85   3              
+  86   3              case '2':led_test();
+  87   3                       transmit_string("LED tested\r\n");
+  88   3                       break;
+  89   3                    
+  90   3              default:transmit_string("Incorrect test. Pass correct number\r\n");
+  91   3                       break;
+  92   3              
+  93   3            }
+  94   2            msdelay(100);
+  95   2        }
+  96   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    641    ----
+   CONSTANT SIZE    =    223    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      12
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      2    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
