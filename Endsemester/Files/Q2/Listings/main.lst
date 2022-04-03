@@ -1,0 +1,155 @@
+C51 COMPILER V9.60.0.0   MAIN                                                              04/02/2022 17:07:55 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <at89c5131.h>
+   2          #include "endsem.h"
+   3          
+   4          char S_str[6]= {0,0,0,0,0,0};   //String for Balance Sita
+   5          char G_str[6] = {0,0,0,0,0,0};  //String for Balance Gita
+   6          char n500_s[3]= {0,0,0};    // STRING FOR 500RS NOTE
+   7          char n100_s[3]= {0,0,0};    // STRING FOR 100RS NOTE
+   8          char password[5] = {0,0,0,0,0} ;   //PASSWORD ARRAY
+   9          
+  10          unsigned int sita = 10000;
+  11          unsigned int gita = 10000;
+  12          
+  13          void msdelay(unsigned int time)
+  14          {
+  15   1        int i,j;
+  16   1        for(i=0;i<time;i++)
+  17   1        {
+  18   2          for(j=0;j<382;j++);
+  19   2        }
+  20   1      }
+  21          
+  22          void account_display(void)
+  23          {
+  24   1        int i=0;
+  25   1        unsigned char cha = 0;
+  26   1        transmit_string("Hello, Please enter Account Number\r\n");
+  27   1        cha = receive_char();
+  28   1        switch(cha)
+  29   1        {
+  30   2          case '1':
+  31   2            transmit_string("Account Holder: Sita\r\n");
+  32   2            transmit_string("Account Balance: ");
+  33   2            int_to_string(sita,S_str);
+  34   2            for(i=0;i<6;i++)
+  35   2            {
+  36   3              transmit_char(S_str[i]);
+  37   3            }
+  38   2            transmit_string("\r\n");
+  39   2            break;
+  40   2          
+  41   2          case '2':
+  42   2            transmit_string("Account Holder: Gita\r\n");
+  43   2            transmit_string("Account Balance: ");
+  44   2            int_to_string(gita,G_str);
+  45   2            for(i=0;i<6;i++)
+  46   2            {
+  47   3              transmit_char(G_str[i]);
+  48   3            }
+  49   2            transmit_string("\r\n");
+  50   2            break;
+  51   2          
+  52   2          default:
+  53   2            transmit_string("No such account, please enter valid details\r\n");
+  54   2            break;
+C51 COMPILER V9.60.0.0   MAIN                                                              04/02/2022 17:07:55 PAGE 2   
+
+  55   2        }
+  56   1        msdelay(100);
+  57   1      }
+  58          
+  59          void withdraw_money(void)
+  60          {
+  61   1        int i=0;
+  62   1        unsigned char chw = 0;
+  63   1        transmit_string("Withdraw state, enter account number\r\n");
+  64   1        chw = receive_char();
+  65   1        switch(chw)
+  66   1        {
+  67   2          case '1':
+  68   2            transmit_string("Account Holder: Sita\r\n");
+  69   2            transmit_string("Account Balance: ");
+  70   2            int_to_string(sita,S_str);
+  71   2            for(i=0;i<6;i++)
+  72   2            {
+  73   3              transmit_char(S_str[i]);
+  74   3            }
+  75   2            transmit_string("\r\n");
+  76   2            transmit_string("Enter Amount, in hundreds\r\n");
+  77   2            break;
+  78   2          
+  79   2          case '2':
+  80   2            transmit_string("Account Holder: Gita\r\n");
+  81   2            transmit_string("Account Balance: ");
+  82   2            int_to_string(gita,G_str);
+  83   2            for(i=0;i<6;i++)
+  84   2            {
+  85   3              transmit_char(G_str[i]);
+  86   3            }
+  87   2            transmit_string("\r\n");
+  88   2            transmit_string("Enter Amount, in hundreds\r\n");
+  89   2            break;
+  90   2          
+  91   2          default:
+  92   2            transmit_string("No such account, please enter valid details\r\n");
+  93   2            break;
+  94   2        }
+  95   1        msdelay(100);
+  96   1      }
+  97          
+  98          void main(void)
+  99          {
+ 100   1          unsigned char ch = 0;
+ 101   1          uart_init();            // Please finish this function in endsem.h 
+ 102   1          while (1)
+ 103   1          {
+ 104   2            transmit_string("Press A for Account display and W for withdrawing cash\r\n");
+ 105   2            ch = receive_char();
+ 106   2            switch(ch)
+ 107   2            {
+ 108   3            case 'A':account_display();
+ 109   3                     break;
+ 110   3            
+ 111   3            case 'a':account_display();
+ 112   3                     break;
+ 113   3            
+ 114   3            case 'W':withdraw_money();
+ 115   3                     break;
+ 116   3            
+C51 COMPILER V9.60.0.0   MAIN                                                              04/02/2022 17:07:55 PAGE 3   
+
+ 117   3            case 'w':withdraw_money();
+ 118   3                     break;
+ 119   3                  
+ 120   3            default:transmit_string("Incorrect input entered. Try again!\r\n");
+ 121   3                     break;
+ 122   3            }
+ 123   2            msdelay(100);     
+ 124   2          }
+ 125   1      }
+ 126          
+ 127          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    700    ----
+   CONSTANT SIZE    =    312    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     27      14
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      2    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

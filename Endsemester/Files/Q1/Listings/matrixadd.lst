@@ -1,0 +1,57 @@
+A51 MACRO ASSEMBLER  MATRIXADD                                                            04/02/2022 14:37:51 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\matrixadd.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE matrixadd.a51 SET(SMALL) DEBUG PRINT(.\Listings\matrixadd.lst) OBJECT(.
+                      \Objects\matrixadd.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     org 0h
+0000 020050            2     ljmp main
+0050                   3     org 50h
+                       4     
+0050                   5     main:
+0050 AA30              6             mov r2, 30H     ;store n
+0052 EA                7             mov a, r2
+0053 8AF0              8             mov b, r2
+0055 A4                9             mul ab                  ;get n^2
+0056 FB               10             mov r3, a               ;store constant n^2
+0057 FC               11             mov r4, a               ;store n^2 (moving)
+0058 7D31             12             mov r5, #31H    ;moving index
+005A                  13             loop:
+005A ED               14                     mov a, r5       
+005B F8               15                     mov r0, a       ;make r0 the moving index
+005C E8               16                     mov a, r0       
+005D 2B               17                     add a, r3       
+005E F9               18                     mov r1, a       ;make r1 = [r0 + n^2]
+005F E6               19                     mov a, @r0      
+0060 27               20                     add a, @r1      ;add M1[r0] + M2[r1]
+0061 FE               21                     mov r6, a       ;store the result in r6
+0062 E9               22                     mov a, r1       
+0063 2B               23                     add a, r3
+0064 F8               24                     mov r0, a       ;make r0 = [r0 + 2*n^2]
+0065 EE               25                     mov a, r6       
+0066 F6               26                     mov @r0, a      ;move the result to M[r0] the new index
+0067 0D               27                     inc r5          ;increment the moving index
+0068 DCF0             28             djnz r4, loop   ;do it until moving n^2 becomes 0
+                      29             
+                      30     end     
+A51 MACRO ASSEMBLER  MATRIXADD                                                            04/02/2022 14:37:51 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+LOOP . . . . . . .  C ADDR   005AH   A   
+MAIN . . . . . . .  C ADDR   0050H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

@@ -1,0 +1,99 @@
+A51 MACRO ASSEMBLER  NOOFBITS                                                             04/01/2022 02:09:35 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\noofbits.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE noofbits.a51 SET(SMALL) DEBUG PRINT(.\Listings\noofbits.lst) OBJECT(.\O
+                      bjects\noofbits.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     org 0H
+0000 020030            2     ljmp main
+0030                   3     org 30H
+                       4     
+0030                   5     main:
+0030 E570              6             mov a, 70H
+0032 7800              7             mov r0, #0H
+0034                   8             body:
+0034 20E019            9                     jb acc.0, increment_1
+0037 20E11B           10                     jb acc.1, increment_2
+003A 20E21D           11                     jb acc.2, increment_3
+003D 20E31F           12                     jb acc.3, increment_4
+0040 20E421           13                     jb acc.4, increment_5
+0043 20E523           14                     jb acc.5, increment_6
+0046 20E625           15                     jb acc.6, increment_7
+0049 20E727           16                     jb acc.7, increment_8
+004C 8871             17                     mov 71H, r0
+004E 80FE             18             loop: jmp loop
+                      19     
+0050                  20     increment_1:
+0050 08               21             inc r0
+0051 C2E0             22             clr acc.0
+0053 80DF             23             jmp body
+                      24     
+0055                  25     increment_2:
+0055 08               26             inc r0
+0056 C2E1             27             clr acc.1
+0058 80DA             28             jmp body
+                      29     
+005A                  30     increment_3:
+005A 08               31             inc r0
+005B C2E2             32             clr acc.2
+005D 80D5             33             jmp body
+                      34             
+005F                  35     increment_4:
+005F 08               36             inc r0
+0060 C2E3             37             clr acc.3
+0062 80D0             38             jmp body
+                      39     
+0064                  40     increment_5:
+0064 08               41             inc r0
+0065 C2E4             42             clr acc.4
+0067 80CB             43             jmp body
+                      44     
+0069                  45     increment_6:
+0069 08               46             inc r0
+006A C2E5             47             clr acc.5
+006C 80C6             48             jmp body
+                      49     
+006E                  50     increment_7:
+006E 08               51             inc r0
+006F C2E6             52             clr acc.6
+0071 80C1             53             jmp body
+                      54     
+0073                  55     increment_8:
+0073 08               56             inc r0
+0074 C2E7             57             clr acc.7
+A51 MACRO ASSEMBLER  NOOFBITS                                                             04/01/2022 02:09:35 PAGE     2
+
+0076 80BC             58             jmp body
+                      59     
+                      60     end
+                                     
+A51 MACRO ASSEMBLER  NOOFBITS                                                             04/01/2022 02:09:35 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+BODY . . . . . . .  C ADDR   0034H   A   
+INCREMENT_1. . . .  C ADDR   0050H   A   
+INCREMENT_2. . . .  C ADDR   0055H   A   
+INCREMENT_3. . . .  C ADDR   005AH   A   
+INCREMENT_4. . . .  C ADDR   005FH   A   
+INCREMENT_5. . . .  C ADDR   0064H   A   
+INCREMENT_6. . . .  C ADDR   0069H   A   
+INCREMENT_7. . . .  C ADDR   006EH   A   
+INCREMENT_8. . . .  C ADDR   0073H   A   
+LOOP . . . . . . .  C ADDR   004EH   A   
+MAIN . . . . . . .  C ADDR   0030H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

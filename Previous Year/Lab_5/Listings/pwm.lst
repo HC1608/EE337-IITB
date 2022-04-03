@@ -1,0 +1,666 @@
+A51 MACRO ASSEMBLER  PWM                                                                  04/02/2022 13:07:34 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\pwm.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE pwm.a51 SET(SMALL) DEBUG PRINT(.\Listings\pwm.lst) OBJECT(.\Objects\pwm
+                      .obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; This subroutine writes characters on the LCD
+  00A0                 2     LCD_data equ P2    ;LCD Data port
+  0080                 3     LCD_rs   equ P0.0  ;LCD Register Select
+  0081                 4     LCD_rw   equ P0.1  ;LCD Read/Write
+  0082                 5     LCD_en   equ P0.2  ;LCD Enable
+                       6             
+0000                   7     org 0H
+0000 2100              8     jmp main
+0100                   9     org 100H
+0100                  10     main:
+0100 758901           11             mov TMOD, #01H          ;set timer0 in mode 1
+0103 75900F           12             mov P1, #0FH
+0106 75423C           13             mov 42H, #03CH          
+0109 7543B0           14             mov 43H, #0B0H
+010C 51EB             15             call delay
+010E 51EB             16             call delay
+0110 5180             17             call lcd_init           ;initialise LCD
+0112 51EB             18             call delay
+0114 51EB             19             call delay
+0116 E590             20             mov a, P1
+0118 5407             21             anl a, #07H
+011A B40043           22             cjne a, #00H, not_zero
+011D 753190           23             mov 31H, #90H
+0120 7147             24             call ascii_finder
+0122 7483             25             mov a,#83h                                      ;Put cursor on first row,third colu
+                             mn
+0124 51BD             26             call lcd_command
+0126 51EB             27             call delay
+0128 900350           28             mov dptr,#my_string1
+012B 51DD             29             call lcd_sendstring             ;call text strings sending routine
+012D 51EB             30             call delay
+012F E560             31             mov a,60H
+0131 51CC             32             call lcd_senddata
+0133 E561             33             mov a,61H
+0135 51CC             34             call lcd_senddata
+0137 74C0             35             mov a,#0C0h                                     ;Put cursor on second row,third col
+                             umn
+0139 51BD             36             call lcd_command
+013B 51EB             37             call delay
+013D 90035C           38             mov dptr,#my_string2
+0140 51DD             39             call lcd_sendstring             ;call text strings sending routine
+0142 51EB             40             call delay
+0144 753118           41             mov 31H, #18H
+0147 7147             42             call ascii_finder
+0149 E560             43             mov a,60H
+014B 51CC             44             call lcd_senddata
+014D E561             45             mov a,61H
+014F 51CC             46             call lcd_senddata
+0151 753100           47             mov 31H, #00H
+0154 7147             48             call ascii_finder
+0156 E560             49             mov a,60H
+0158 51CC             50             call lcd_senddata
+015A E561             51             mov a,61H
+015C 51CC             52             call lcd_senddata
+015E 6172             53             jmp duty_90
+0160                  54             not_zero:
+0160 B40143           55             cjne a, #01H, not_one
+A51 MACRO ASSEMBLER  PWM                                                                  04/02/2022 13:07:34 PAGE     2
+
+0163 753180           56             mov 31H, #80H
+0166 7147             57             call ascii_finder
+0168 7483             58             mov a,#83h                                      ;Put cursor on first row,third colu
+                             mn
+016A 51BD             59             call lcd_command
+016C 51EB             60             call delay
+016E 900350           61             mov dptr,#my_string1
+0171 51DD             62             call lcd_sendstring             ;call text strings sending routine
+0173 51EB             63             call delay
+0175 E560             64             mov a,60H
+0177 51CC             65             call lcd_senddata
+0179 E561             66             mov a,61H
+017B 51CC             67             call lcd_senddata
+017D 74C0             68             mov a,#0C0h                                     ;Put cursor on second row,third col
+                             umn
+017F 51BD             69             call lcd_command
+0181 51EB             70             call delay
+0183 90035C           71             mov dptr,#my_string2
+0186 51DD             72             call lcd_sendstring             ;call text strings sending routine
+0188 51EB             73             call delay
+018A 753116           74             mov 31H, #16H
+018D 7147             75             call ascii_finder
+018F E560             76             mov a,60H
+0191 51CC             77             call lcd_senddata
+0193 E561             78             mov a,61H
+0195 51CC             79             call lcd_senddata
+0197 753100           80             mov 31H, #00H
+019A 7147             81             call ascii_finder
+019C E560             82             mov a,60H
+019E 51CC             83             call lcd_senddata
+01A0 E561             84             mov a,61H
+01A2 51CC             85             call lcd_senddata
+01A4 6184             86             jmp duty_80
+01A6                  87             not_one:
+01A6 B40243           88             cjne a, #02H, not_two
+01A9 753170           89             mov 31H, #70H
+01AC 7147             90             call ascii_finder
+01AE 7483             91             mov a,#83h                                      ;Put cursor on first row,third colu
+                             mn
+01B0 51BD             92             call lcd_command
+01B2 51EB             93             call delay
+01B4 900350           94             mov dptr,#my_string1
+01B7 51DD             95             call lcd_sendstring             ;call text strings sending routine
+01B9 51EB             96             call delay
+01BB E560             97             mov a,60H
+01BD 51CC             98             call lcd_senddata
+01BF E561             99             mov a,61H
+01C1 51CC            100             call lcd_senddata
+01C3 74C0            101             mov a,#0C0h                                     ;Put cursor on second row,third col
+                             umn
+01C5 51BD            102             call lcd_command
+01C7 51EB            103             call delay
+01C9 90035C          104             mov dptr,#my_string2
+01CC 51DD            105             call lcd_sendstring             ;call text strings sending routine
+01CE 51EB            106             call delay
+01D0 753114          107             mov 31H, #14H
+01D3 7147            108             call ascii_finder
+01D5 E560            109             mov a,60H
+01D7 51CC            110             call lcd_senddata
+01D9 E561            111             mov a,61H
+01DB 51CC            112             call lcd_senddata
+01DD 753100          113             mov 31H, #00H
+01E0 7147            114             call ascii_finder
+01E2 E560            115             mov a,60H
+01E4 51CC            116             call lcd_senddata
+01E6 E561            117             mov a,61H
+A51 MACRO ASSEMBLER  PWM                                                                  04/02/2022 13:07:34 PAGE     3
+
+01E8 51CC            118             call lcd_senddata
+01EA 6196            119             jmp duty_70
+01EC                 120             not_two:
+01EC B40343          121             cjne a, #03H, not_three
+01EF 753160          122             mov 31H, #60H
+01F2 7147            123             call ascii_finder
+01F4 7483            124             mov a,#83h                                      ;Put cursor on first row,third colu
+                             mn
+01F6 51BD            125             call lcd_command
+01F8 51EB            126             call delay
+01FA 900350          127             mov dptr,#my_string1
+01FD 51DD            128             call lcd_sendstring             ;call text strings sending routine
+01FF 51EB            129             call delay
+0201 E560            130             mov a,60H
+0203 51CC            131             call lcd_senddata
+0205 E561            132             mov a,61H
+0207 51CC            133             call lcd_senddata
+0209 74C0            134             mov a,#0C0h                                     ;Put cursor on second row,third col
+                             umn
+020B 51BD            135             call lcd_command
+020D 51EB            136             call delay
+020F 90035C          137             mov dptr,#my_string2
+0212 51DD            138             call lcd_sendstring             ;call text strings sending routine
+0214 51EB            139             call delay
+0216 753112          140             mov 31H, #12H
+0219 7147            141             call ascii_finder
+021B E560            142             mov a,60H
+021D 51CC            143             call lcd_senddata
+021F E561            144             mov a,61H
+0221 51CC            145             call lcd_senddata
+0223 753100          146             mov 31H, #00H
+0226 7147            147             call ascii_finder
+0228 E560            148             mov a,60H
+022A 51CC            149             call lcd_senddata
+022C E561            150             mov a,61H
+022E 51CC            151             call lcd_senddata
+0230 61A8            152             jmp duty_60
+0232                 153             not_three:
+0232 B40443          154             cjne a, #04H, not_four
+0235 753150          155             mov 31H, #50H
+0238 7147            156             call ascii_finder
+023A 7483            157             mov a,#83h                                      ;Put cursor on first row,third colu
+                             mn
+023C 51BD            158             call lcd_command
+023E 51EB            159             call delay
+0240 900350          160             mov dptr,#my_string1
+0243 51DD            161             call lcd_sendstring             ;call text strings sending routine
+0245 51EB            162             call delay
+0247 E560            163             mov a,60H
+0249 51CC            164             call lcd_senddata
+024B E561            165             mov a,61H
+024D 51CC            166             call lcd_senddata
+024F 74C0            167             mov a,#0C0h                                     ;Put cursor on second row,third col
+                             umn
+0251 51BD            168             call lcd_command
+0253 51EB            169             call delay
+0255 90035C          170             mov dptr,#my_string2
+0258 51DD            171             call lcd_sendstring             ;call text strings sending routine
+025A 51EB            172             call delay
+025C 753110          173             mov 31H, #10H
+025F 7147            174             call ascii_finder
+0261 E560            175             mov a,60H
+0263 51CC            176             call lcd_senddata
+0265 E561            177             mov a,61H
+0267 51CC            178             call lcd_senddata
+0269 753100          179             mov 31H, #00H
+A51 MACRO ASSEMBLER  PWM                                                                  04/02/2022 13:07:34 PAGE     4
+
+026C 7147            180             call ascii_finder
+026E E560            181             mov a,60H
+0270 51CC            182             call lcd_senddata
+0272 E561            183             mov a,61H
+0274 51CC            184             call lcd_senddata
+0276 61BA            185             jmp duty_50
+0278                 186             not_four:
+0278 B40543          187             cjne a, #05H, not_five
+027B 753140          188             mov 31H, #40H
+027E 7147            189             call ascii_finder
+0280 7483            190             mov a,#83h                                      ;Put cursor on first row,third colu
+                             mn
+0282 51BD            191             call lcd_command
+0284 51EB            192             call delay
+0286 900350          193             mov dptr,#my_string1
+0289 51DD            194             call lcd_sendstring             ;call text strings sending routine
+028B 51EB            195             call delay
+028D E560            196             mov a,60H
+028F 51CC            197             call lcd_senddata
+0291 E561            198             mov a,61H
+0293 51CC            199             call lcd_senddata
+0295 74C0            200             mov a,#0C0h                                     ;Put cursor on second row,third col
+                             umn
+0297 51BD            201             call lcd_command
+0299 51EB            202             call delay
+029B 90035C          203             mov dptr,#my_string2
+029E 51DD            204             call lcd_sendstring             ;call text strings sending routine
+02A0 51EB            205             call delay
+02A2 753108          206             mov 31H, #08H
+02A5 7147            207             call ascii_finder
+02A7 E560            208             mov a,60H
+02A9 51CC            209             call lcd_senddata
+02AB E561            210             mov a,61H
+02AD 51CC            211             call lcd_senddata
+02AF 753100          212             mov 31H, #00H
+02B2 7147            213             call ascii_finder
+02B4 E560            214             mov a,60H
+02B6 51CC            215             call lcd_senddata
+02B8 E561            216             mov a,61H
+02BA 51CC            217             call lcd_senddata
+02BC 61CC            218             jmp duty_40
+02BE                 219             not_five:
+02BE B40643          220             cjne a, #06H, not_six
+02C1 753130          221             mov 31H, #30H
+02C4 7147            222             call ascii_finder
+02C6 7483            223             mov a,#83h                                      ;Put cursor on first row,third colu
+                             mn
+02C8 51BD            224             call lcd_command
+02CA 51EB            225             call delay
+02CC 900350          226             mov dptr,#my_string1
+02CF 51DD            227             call lcd_sendstring             ;call text strings sending routine
+02D1 51EB            228             call delay
+02D3 E560            229             mov a,60H
+02D5 51CC            230             call lcd_senddata
+02D7 E561            231             mov a,61H
+02D9 51CC            232             call lcd_senddata
+02DB 74C0            233             mov a,#0C0h                                     ;Put cursor on second row,third col
+                             umn
+02DD 51BD            234             call lcd_command
+02DF 51EB            235             call delay
+02E1 90035C          236             mov dptr,#my_string2
+02E4 51DD            237             call lcd_sendstring             ;call text strings sending routine
+02E6 51EB            238             call delay
+02E8 753106          239             mov 31H, #06H
+02EB 7147            240             call ascii_finder
+02ED E560            241             mov a,60H
+A51 MACRO ASSEMBLER  PWM                                                                  04/02/2022 13:07:34 PAGE     5
+
+02EF 51CC            242             call lcd_senddata
+02F1 E561            243             mov a,61H
+02F3 51CC            244             call lcd_senddata
+02F5 753100          245             mov 31H, #00H
+02F8 7147            246             call ascii_finder
+02FA E560            247             mov a,60H
+02FC 51CC            248             call lcd_senddata
+02FE E561            249             mov a,61H
+0300 51CC            250             call lcd_senddata
+0302 61DE            251             jmp duty_30
+0304                 252             not_six:
+0304 753120          253             mov 31H, #20H
+0307 7147            254             call ascii_finder
+0309 7483            255             mov a,#83h                                      ;Put cursor on first row,third colu
+                             mn
+030B 51BD            256             call lcd_command
+030D 51EB            257             call delay
+030F 900350          258             mov dptr,#my_string1
+0312 51DD            259             call lcd_sendstring             ;call text strings sending routine
+0314 51EB            260             call delay
+0316 E560            261             mov a,60H
+0318 51CC            262             call lcd_senddata
+031A E561            263             mov a,61H
+031C 51CC            264             call lcd_senddata
+031E 74C0            265             mov a,#0C0h                                     ;Put cursor on second row,third col
+                             umn
+0320 51BD            266             call lcd_command
+0322 51EB            267             call delay
+0324 90035C          268             mov dptr,#my_string2
+0327 51DD            269             call lcd_sendstring             ;call text strings sending routine
+0329 51EB            270             call delay
+032B 753104          271             mov 31H, #04H
+032E 7147            272             call ascii_finder
+0330 E560            273             mov a,60H
+0332 51CC            274             call lcd_senddata
+0334 E561            275             mov a,61H
+0336 51CC            276             call lcd_senddata
+0338 753100          277             mov 31H, #00H
+033B 7147            278             call ascii_finder
+033D E560            279             mov a,60H
+033F 51CC            280             call lcd_senddata
+0341 E561            281             mov a,61H
+0343 51CC            282             call lcd_senddata
+0345 61F0            283             jmp duty_20
+                     284     
+0347                 285     ascii_finder:
+0347 C001            286             push 1
+0349 C002            287             push 2
+034B A931            288             mov r1, 31H; the first two bits
+034D E9              289             mov a, r1
+034E 75F010          290             mov b, #10H
+0351 84              291             div ab; divide by 10H to get both digits 
+0352 FA              292             mov r2, a; the first digit
+0353 ABF0            293             mov r3, b; the second digit
+0355 EA              294             mov a, r2
+0356 7164            295             call check_the_val
+0358 F560            296             mov 60H, a; move the accumulator to 60H
+035A EB              297             mov a, r3
+035B 7164            298             call check_the_val
+035D F561            299             mov 61H, a; move the accumulator to 61H
+035F D002            300             pop 2
+0361 D001            301             pop 1
+0363 22              302             ret
+                     303     
+0364                 304     check_the_val:
+0364 B40903          305                     cjne a,#9H,unequal; check if equal to 9
+A51 MACRO ASSEMBLER  PWM                                                                  04/02/2022 13:07:34 PAGE     6
+
+0367 2430            306                     add a,#30H
+0369 22              307                     ret
+036A                 308                     unequal:
+036A 4003            309                             jc smaller; check if smaller than 9
+                     310                             ;greater than 9 case
+                     311                             ;add 37H to get ASCII for A-F
+036C 2437            312                             add a, #37H
+036E 22              313                             ret
+036F                 314                             smaller:
+                     315                                     ;add 30H to get ASCII for 0-9
+036F 2430            316                                     add a, #30H
+0371 22              317                                     ret
+                     318     
+0372                 319     duty_90:
+0372 D297            320             setb P1.7
+0374 7A12            321             mov r2, #18
+0376                 322             on_90:
+0376 9102            323                     call delay_100ms
+0378 DAFC            324                     djnz r2, on_90
+037A C297            325             clr P1.7
+037C 7A02            326             mov r2, #2
+037E                 327             off_90:
+037E 9102            328                     call delay_100ms
+0380 DAFC            329                     djnz r2, off_90
+0382 80EE            330             jmp duty_90
+                     331     
+0384                 332     duty_80:
+0384 D297            333             setb P1.7
+0386 7A10            334             mov r2, #16
+0388                 335             on_80:
+0388 9102            336                     call delay_100ms
+038A DAFC            337                     djnz r2, on_80
+038C C297            338             clr P1.7
+038E 7A04            339             mov r2, #4
+0390                 340             off_80:
+0390 9102            341                     call delay_100ms
+0392 DAFC            342                     djnz r2, off_80
+0394 80EE            343             jmp duty_80
+                     344     
+0396                 345     duty_70:
+0396 D297            346             setb P1.7
+0398 7A0E            347             mov r2, #14
+039A                 348             on_70:
+039A 9102            349                     call delay_100ms
+039C DAFC            350                     djnz r2, on_70
+039E C297            351             clr P1.7
+03A0 7A06            352             mov r2, #6
+03A2                 353             off_70:
+03A2 9102            354                     call delay_100ms
+03A4 DAFC            355                     djnz r2, off_70
+03A6 80EE            356             jmp duty_70
+                     357     
+03A8                 358     duty_60:
+03A8 D297            359             setb P1.7
+03AA 7A0C            360             mov r2, #12
+03AC                 361             on_60:
+03AC 9102            362                     call delay_100ms
+03AE DAFC            363                     djnz r2, on_60
+03B0 C297            364             clr P1.7
+03B2 7A08            365             mov r2, #8
+03B4                 366             off_60:
+03B4 9102            367                     call delay_100ms
+03B6 DAFC            368                     djnz r2, off_60
+03B8 80EE            369             jmp duty_60
+                     370     
+03BA                 371     duty_50:
+A51 MACRO ASSEMBLER  PWM                                                                  04/02/2022 13:07:34 PAGE     7
+
+03BA D297            372             setb P1.7
+03BC 7A0A            373             mov r2, #10
+03BE                 374             on_50:
+03BE 9102            375                     call delay_100ms
+03C0 DAFC            376                     djnz r2, on_50
+03C2 C297            377             clr P1.7
+03C4 7A0A            378             mov r2, #10
+03C6                 379             off_50:
+03C6 9102            380                     call delay_100ms
+03C8 DAFC            381                     djnz r2, off_50
+03CA 80EE            382             jmp duty_50
+                     383     
+03CC                 384     duty_40:
+03CC D297            385             setb P1.7
+03CE 7A08            386             mov r2, #8
+03D0                 387             on_40:
+03D0 9102            388                     call delay_100ms
+03D2 DAFC            389                     djnz r2, on_40
+03D4 C297            390             clr P1.7
+03D6 7A0C            391             mov r2, #12
+03D8                 392             off_40:
+03D8 9102            393                     call delay_100ms
+03DA DAFC            394                     djnz r2, off_40
+03DC 80EE            395             jmp duty_40
+                     396     
+03DE                 397     duty_30:
+03DE D297            398             setb P1.7
+03E0 7A06            399             mov r2, #6
+03E2                 400             on_30:
+03E2 9102            401                     call delay_100ms
+03E4 DAFC            402                     djnz r2, on_30
+03E6 C297            403             clr P1.7
+03E8 7A0E            404             mov r2, #14
+03EA                 405             off_30:
+03EA 9102            406                     call delay_100ms
+03EC DAFC            407                     djnz r2, off_30
+03EE 80EE            408             jmp duty_30
+                     409     
+03F0                 410     duty_20:
+03F0 D297            411             setb P1.7
+03F2 7A04            412             mov r2, #4
+03F4                 413             on_20:
+03F4 9102            414                     call delay_100ms
+03F6 DAFC            415                     djnz r2, on_20
+03F8 C297            416             clr P1.7
+03FA 7A10            417             mov r2, #16
+03FC                 418             off_20:
+03FC 9102            419                     call delay_100ms
+03FE DAFC            420                     djnz r2, off_20
+0400 80DC            421             jmp duty_30
+                     422     
+0402                 423     delay_100ms:
+0402 7D04            424             mov r5, #4
+0404                 425             repeat:
+0404 9109            426                     call delay_25ms
+0406 DDFC            427                     djnz r5, repeat
+0408 22              428                     ret
+                     429                     
+0409                 430     delay_25ms:                             ;timer will take 50k/2MHz = 25,000us = 25ms
+0409 85428C          431             mov TH0, 42H            ;move the values to TH, TL register 
+040C 85438A          432             mov TL0, 43H            
+040F D28C            433             setb TR0                        ;setup timer
+0411                 434             loop1:                          ;polling
+0411 208D02          435                     jb TF0, exit    ;exit if flag bit is 1
+0414 80FB            436                     jmp loop1
+0416                 437             exit:
+A51 MACRO ASSEMBLER  PWM                                                                  04/02/2022 13:07:34 PAGE     8
+
+0416 C28D            438                     clr TF0                 ;clear flag bit
+0418 22              439                     ret
+                     440     
+0280                 441     org 280H
+                     442     ;------------------------LCD Initialisation routine----------------------------------------
+                             ------------
+0280                 443     lcd_init:
+0280 75A038          444              mov   LCD_data,#38H  ;Function set: 2 Line, 8-bit, 5x7 dots
+0283 C280            445              clr   LCD_rs         ;Selected command register
+0285 C281            446              clr   LCD_rw         ;We are writing in instruction register
+0287 D282            447              setb  LCD_en         ;Enable H->L
+0289 51EB            448                      acall delay
+028B C282            449              clr   LCD_en
+028D 51EB            450                  acall delay
+                     451     
+028F 75A00C          452              mov   LCD_data,#0CH  ;Display on, Curson off
+0292 C280            453              clr   LCD_rs         ;Selected instruction register
+0294 C281            454              clr   LCD_rw         ;We are writing in instruction register
+0296 D282            455              setb  LCD_en         ;Enable H->L
+0298 51EB            456                      acall delay
+029A C282            457              clr   LCD_en
+                     458              
+029C 51EB            459                      acall delay
+029E 75A001          460              mov   LCD_data,#01H  ;Clear LCD
+02A1 C280            461              clr   LCD_rs         ;Selected command register
+02A3 C281            462              clr   LCD_rw         ;We are writing in instruction register
+02A5 D282            463              setb  LCD_en         ;Enable H->L
+02A7 51EB            464                      acall delay
+02A9 C282            465              clr   LCD_en
+                     466              
+02AB 51EB            467                      acall delay
+                     468     
+02AD 75A006          469              mov   LCD_data,#06H  ;Entry mode, auto increment with no shift
+02B0 C280            470              clr   LCD_rs         ;Selected command register
+02B2 C281            471              clr   LCD_rw         ;We are writing in instruction register
+02B4 D282            472              setb  LCD_en         ;Enable H->L
+02B6 51EB            473                      acall delay
+02B8 C282            474              clr   LCD_en
+                     475     
+02BA 51EB            476                      acall delay
+                     477              
+02BC 22              478              ret                  ;Return from routine
+                     479     ;-----------------------command sending routine-------------------------------------
+02BD                 480      lcd_command:
+02BD F5A0            481              mov   LCD_data,A     ;Move the command to LCD port
+02BF C280            482              clr   LCD_rs         ;Selected command register
+02C1 C281            483              clr   LCD_rw         ;We are writing in instruction register
+02C3 D282            484              setb  LCD_en         ;Enable H->L
+02C5 51EB            485                      acall delay
+02C7 C282            486              clr   LCD_en
+02C9 51EB            487                      acall delay
+                     488         
+02CB 22              489              ret  
+                     490     ;-----------------------data sending routine-------------------------------------          
+                                       
+02CC                 491      lcd_senddata:
+02CC F5A0            492              mov   LCD_data,A     ;Move the command to LCD port
+02CE D280            493              setb  LCD_rs         ;Selected data register
+02D0 C281            494              clr   LCD_rw         ;We are writing
+02D2 D282            495              setb  LCD_en         ;Enable H->L
+02D4 51EB            496                      acall delay
+02D6 C282            497              clr   LCD_en
+02D8 51EB            498              acall delay
+02DA 51EB            499                      acall delay
+02DC 22              500              ret                  ;Return from busy routine
+                     501     
+A51 MACRO ASSEMBLER  PWM                                                                  04/02/2022 13:07:34 PAGE     9
+
+                     502     ;-----------------------text strings sending routine-------------------------------------
+02DD                 503     lcd_sendstring:
+02DD C0E0            504             push 0e0h
+02DF                 505             lcd_sendstring_loop:
+02DF E4              506                      clr   a                                        ;clear Accumulator for any 
+                             previous data
+02E0 93              507                      movc  a,@a+dptr                        ;load the first character in accumu
+                             lator
+02E1 6005            508                      jz    exitz                            ;go to exit if zero
+02E3 51CC            509                      acall lcd_senddata                     ;send first char
+02E5 A3              510                      inc   dptr                             ;increment data pointer
+02E6 80F7            511                      sjmp  LCD_sendstring_loop      ;jump back to send the next character
+02E8 D0E0            512     exitz:    pop 0e0h
+02EA 22              513              ret                                            ;End of routine
+                     514     
+                     515     ;----------------------delay routine-----------------------------------------------------
+02EB C000            516     delay:   push 0
+02ED C001            517              push 1
+02EF 7801            518              mov r0,#1
+02F1 79FF            519     loop2:   mov r1,#255
+02F3 D9FE            520              loopsie:        djnz r1, loopsie
+02F5 D8FA            521              djnz r0, loop2
+02F7 D001            522              pop 1
+02F9 D000            523              pop 0 
+02FB 22              524              ret
+                     525     ;--------------------------------------------------------
+0350                 526     org 350H
+                     527             
+0350                 528     my_string1:
+0350 44757479        529             DB   "Duty cycle:",00H
+0354 20637963                
+0358 6C653A00                
+                     530     
+035C                 531     my_string2:
+035C 50756C73        532             DB   "Pulse width:",00H
+0360 65207769                
+0364 6474683A                
+0368 00                      
+                     533                     
+                     534     end     
+A51 MACRO ASSEMBLER  PWM                                                                  04/02/2022 13:07:34 PAGE    10
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E              T Y P E  V A L U E   ATTRIBUTES
+
+ASCII_FINDER. . . .  C ADDR   0347H   A   
+B . . . . . . . . .  D ADDR   00F0H   A   
+CHECK_THE_VAL . . .  C ADDR   0364H   A   
+DELAY . . . . . . .  C ADDR   02EBH   A   
+DELAY_100MS . . . .  C ADDR   0402H   A   
+DELAY_25MS. . . . .  C ADDR   0409H   A   
+DUTY_20 . . . . . .  C ADDR   03F0H   A   
+DUTY_30 . . . . . .  C ADDR   03DEH   A   
+DUTY_40 . . . . . .  C ADDR   03CCH   A   
+DUTY_50 . . . . . .  C ADDR   03BAH   A   
+DUTY_60 . . . . . .  C ADDR   03A8H   A   
+DUTY_70 . . . . . .  C ADDR   0396H   A   
+DUTY_80 . . . . . .  C ADDR   0384H   A   
+DUTY_90 . . . . . .  C ADDR   0372H   A   
+EXIT. . . . . . . .  C ADDR   0416H   A   
+EXITZ . . . . . . .  C ADDR   02E8H   A   
+LCD_COMMAND . . . .  C ADDR   02BDH   A   
+LCD_DATA. . . . . .  D ADDR   00A0H   A   
+LCD_EN. . . . . . .  B ADDR   0080H.2 A   
+LCD_INIT. . . . . .  C ADDR   0280H   A   
+LCD_RS. . . . . . .  B ADDR   0080H.0 A   
+LCD_RW. . . . . . .  B ADDR   0080H.1 A   
+LCD_SENDDATA. . . .  C ADDR   02CCH   A   
+LCD_SENDSTRING. . .  C ADDR   02DDH   A   
+LCD_SENDSTRING_LOOP  C ADDR   02DFH   A   
+LOOP1 . . . . . . .  C ADDR   0411H   A   
+LOOP2 . . . . . . .  C ADDR   02F1H   A   
+LOOPSIE . . . . . .  C ADDR   02F3H   A   
+MAIN. . . . . . . .  C ADDR   0100H   A   
+MY_STRING1. . . . .  C ADDR   0350H   A   
+MY_STRING2. . . . .  C ADDR   035CH   A   
+NOT_FIVE. . . . . .  C ADDR   02BEH   A   
+NOT_FOUR. . . . . .  C ADDR   0278H   A   
+NOT_ONE . . . . . .  C ADDR   01A6H   A   
+NOT_SIX . . . . . .  C ADDR   0304H   A   
+NOT_THREE . . . . .  C ADDR   0232H   A   
+NOT_TWO . . . . . .  C ADDR   01ECH   A   
+NOT_ZERO. . . . . .  C ADDR   0160H   A   
+OFF_20. . . . . . .  C ADDR   03FCH   A   
+OFF_30. . . . . . .  C ADDR   03EAH   A   
+OFF_40. . . . . . .  C ADDR   03D8H   A   
+OFF_50. . . . . . .  C ADDR   03C6H   A   
+OFF_60. . . . . . .  C ADDR   03B4H   A   
+OFF_70. . . . . . .  C ADDR   03A2H   A   
+OFF_80. . . . . . .  C ADDR   0390H   A   
+OFF_90. . . . . . .  C ADDR   037EH   A   
+ON_20 . . . . . . .  C ADDR   03F4H   A   
+ON_30 . . . . . . .  C ADDR   03E2H   A   
+ON_40 . . . . . . .  C ADDR   03D0H   A   
+ON_50 . . . . . . .  C ADDR   03BEH   A   
+ON_60 . . . . . . .  C ADDR   03ACH   A   
+ON_70 . . . . . . .  C ADDR   039AH   A   
+ON_80 . . . . . . .  C ADDR   0388H   A   
+ON_90 . . . . . . .  C ADDR   0376H   A   
+P0. . . . . . . . .  D ADDR   0080H   A   
+P1. . . . . . . . .  D ADDR   0090H   A   
+P2. . . . . . . . .  D ADDR   00A0H   A   
+REPEAT. . . . . . .  C ADDR   0404H   A   
+SMALLER . . . . . .  C ADDR   036FH   A   
+TF0 . . . . . . . .  B ADDR   0088H.5 A   
+A51 MACRO ASSEMBLER  PWM                                                                  04/02/2022 13:07:34 PAGE    11
+
+TH0 . . . . . . . .  D ADDR   008CH   A   
+TL0 . . . . . . . .  D ADDR   008AH   A   
+TMOD. . . . . . . .  D ADDR   0089H   A   
+TR0 . . . . . . . .  B ADDR   0088H.4 A   
+UNEQUAL . . . . . .  C ADDR   036AH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
