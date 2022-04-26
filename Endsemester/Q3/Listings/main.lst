@@ -1,0 +1,287 @@
+C51 COMPILER V9.60.0.0   MAIN                                                              04/26/2022 13:18:44 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <at89c5131.h>
+   2          #include "endsem.h"
+   3          
+   4          char S_str[6]= {0,0,0,0,0,0};   //String for Balance Sita
+   5          char G_str[6] = {0,0,0,0,0,0};  //String for Balance Gita
+   6          char n500_s[3]= {0,0,0};    // STRING FOR 500RS NOTE
+   7          char n100_s[3]= {0,0,0};    // STRING FOR 100RS NOTE
+   8          unsigned char password[5] = {0,0,0,0,0} ;   //PASSWORD ARRAY
+   9          char g_password[5] = {'U','P','L','A','B'} ;   //PASSWORD ARRAY
+  10          char s_password[5] = {'E','E','3','3','7'} ;   //PASSWORD ARRAY
+  11          unsigned int sita = 10000;
+  12          unsigned int gita = 10000;
+  13          
+  14          int check_pass(int sg){
+  15   1          int i=0;
+  16   1          transmit_string("Enter Password\r\n");
+  17   1          for(i=0;i<5;i++)
+  18   1            {
+  19   2              password[i] = receive_char();
+  20   2            }
+  21   1          if(sg==1){
+  22   2            for(i=0;i<5;i++)
+  23   2            {
+  24   3              if(password[i]!=s_password[i]){
+  25   4                return 1;
+  26   4              }
+  27   3            }
+  28   2            return 0;
+  29   2          }
+  30   1          else{
+  31   2            for(i=0;i<5;i++)
+  32   2            {
+  33   3              if(password[i]!=g_password[i]){
+  34   4                return 1;
+  35   4              }
+  36   3            }
+  37   2            return 0;
+  38   2          }
+  39   1      }
+  40          void msdelay(unsigned int time)
+  41          {
+  42   1        int i,j;
+  43   1        for(i=0;i<time;i++)
+  44   1        {
+  45   2          for(j=0;j<382;j++);
+  46   2        }
+  47   1      }
+  48          
+  49          void account_display(void)
+  50          {
+  51   1        int i=0;
+  52   1        int f=0;
+  53   1        unsigned char cha = 0;
+  54   1        transmit_string("Enter Account No\r\n");
+C51 COMPILER V9.60.0.0   MAIN                                                              04/26/2022 13:18:44 PAGE 2   
+
+  55   1        cha = receive_char();
+  56   1        switch(cha)
+  57   1        {
+  58   2          case '1':
+  59   2            /*
+  60   2            f = check_pass(1);
+  61   2            if(f==1){
+  62   2              break;
+  63   2            }
+  64   2            */
+  65   2            transmit_string("Account Holder: Sita\r\n");
+  66   2            transmit_string("Account Balance: ");
+  67   2            int_to_string(sita,S_str);
+  68   2            for(i=0;i<6;i++)
+  69   2            {
+  70   3              transmit_char(S_str[i]);
+  71   3            }
+  72   2            transmit_string("\r\n");
+  73   2            break;
+  74   2          
+  75   2          case '2':
+  76   2            /*
+  77   2            f = check_pass(2);
+  78   2            if(f==1){
+  79   2              break;
+  80   2            }
+  81   2            */
+  82   2            transmit_string("Account Holder: Gita\r\n");
+  83   2            transmit_string("Account Balance: ");
+  84   2            int_to_string(gita,G_str);
+  85   2            for(i=0;i<6;i++)
+  86   2            {
+  87   3              transmit_char(G_str[i]);
+  88   3            }
+  89   2            transmit_string("\r\n");
+  90   2            break;
+  91   2          
+  92   2          default:
+  93   2            transmit_string("No such account\r\n");
+  94   2            break;
+  95   2        }
+  96   1        msdelay(100);
+  97   1      }
+  98          
+  99          void withdraw_money(void)
+ 100          {
+ 101   1        int i=0;
+ 102   1        int f=0;
+ 103   1        unsigned char chw = 0;
+ 104   1        unsigned char ch1 = 0;
+ 105   1        unsigned char ch2 = 0;
+ 106   1        unsigned int cash = 0;
+ 107   1        unsigned int fivehundreds=0;
+ 108   1        unsigned int hundreds=0;
+ 109   1        transmit_string("Withdraw State, Enter Account No\r\n");
+ 110   1        chw = receive_char();
+ 111   1        switch(chw)
+ 112   1        {
+ 113   2          case '1':
+ 114   2            f = check_pass(1);
+ 115   2            if(f==1){
+ 116   3              break;
+C51 COMPILER V9.60.0.0   MAIN                                                              04/26/2022 13:18:44 PAGE 3   
+
+ 117   3            }
+ 118   2            transmit_string("Account Holder: Sita\r\n");
+ 119   2            transmit_string("Account Balance: ");
+ 120   2            int_to_string(sita,S_str);
+ 121   2            for(i=0;i<6;i++)
+ 122   2            {
+ 123   3              transmit_char(S_str[i]);
+ 124   3            }
+ 125   2            transmit_string("\r\n");
+ 126   2            transmit_string("Enter Amount, In Hundreds\r\n");
+ 127   2            ch1 = receive_char();
+ 128   2            ch2 = receive_char();
+ 129   2            if((ch1>='0' && ch1<='9') && (ch2>='0' && ch2<='9')){
+ 130   3              cash = ((10*((int)ch1 - 48)) + ((int)ch2 - 48))*100;
+ 131   3              if(cash>sita){
+ 132   4                transmit_string("Insufficient Funds\r\n");
+ 133   4              }
+ 134   3              else{
+ 135   4                fivehundreds = cash/500;
+ 136   4                hundreds = (cash%500)/100;
+ 137   4                sita = sita - cash;
+ 138   4                int_to_string(sita,S_str);
+ 139   4                transmit_string("Remaining Balance: ");
+ 140   4                for(i=1;i<6;i++)
+ 141   4                {
+ 142   5                  transmit_char(S_str[i]);
+ 143   5                }
+ 144   4                transmit_string("\r\n");
+ 145   4                int_to_string_2(hundreds,n100_s);
+ 146   4                int_to_string_2(fivehundreds,n500_s);
+ 147   4                transmit_string("500 Notes: ");
+ 148   4                for(i=0;i<3;i++)
+ 149   4                {
+ 150   5                  transmit_char(n500_s[i]);
+ 151   5                }
+ 152   4                transmit_string(", ");
+ 153   4                transmit_string("100 Notes: ");
+ 154   4                for(i=0;i<3;i++)
+ 155   4                {
+ 156   5                  transmit_char(n100_s[i]);
+ 157   5                }
+ 158   4                transmit_string("\r\n");
+ 159   4              }
+ 160   3            }
+ 161   2            else{
+ 162   3                transmit_string("Invalid Amount\r\n");
+ 163   3            }
+ 164   2            break;
+ 165   2          
+ 166   2          case '2':
+ 167   2            f = check_pass(2);
+ 168   2            if(f==1){
+ 169   3              break;
+ 170   3            }
+ 171   2            transmit_string("Account Holder: Gita\r\n");
+ 172   2            transmit_string("Account Balance: ");
+ 173   2            int_to_string(gita,G_str);
+ 174   2            for(i=0;i<6;i++)
+ 175   2            {
+ 176   3              transmit_char(G_str[i]);
+ 177   3            }
+ 178   2            transmit_string("\r\n");
+C51 COMPILER V9.60.0.0   MAIN                                                              04/26/2022 13:18:44 PAGE 4   
+
+ 179   2            transmit_string("Enter Amount, In Hundreds\r\n");
+ 180   2            ch1 = receive_char();
+ 181   2            ch2 = receive_char();
+ 182   2            if((ch1>='0' && ch1<='9') && (ch2>='0' && ch2<='9')){
+ 183   3              cash = ((10*((int)ch1 - 48)) + ((int)ch2 - 48))*100;
+ 184   3              if(cash>gita){
+ 185   4                transmit_string("Insufficient Funds\r\n");
+ 186   4              }
+ 187   3              else{
+ 188   4                fivehundreds = cash/500;
+ 189   4                hundreds = (cash%500)/100;
+ 190   4                gita = gita - cash;
+ 191   4                int_to_string(gita,G_str);
+ 192   4                transmit_string("Remaining Balance: ");
+ 193   4                for(i=1;i<6;i++)
+ 194   4                {
+ 195   5                  transmit_char(G_str[i]);
+ 196   5                }
+ 197   4                transmit_string("\r\n");
+ 198   4                int_to_string_2(hundreds,n100_s);
+ 199   4                int_to_string_2(fivehundreds,n500_s);
+ 200   4                transmit_string("500 Notes: ");
+ 201   4                for(i=0;i<3;i++)
+ 202   4                {
+ 203   5                  transmit_char(n500_s[i]);
+ 204   5                }
+ 205   4                transmit_string(", ");
+ 206   4                transmit_string("100 Notes: ");
+ 207   4                for(i=0;i<3;i++)
+ 208   4                {
+ 209   5                  transmit_char(n100_s[i]);
+ 210   5                }
+ 211   4                transmit_string("\r\n");
+ 212   4              }
+ 213   3            }
+ 214   2            else{
+ 215   3                transmit_string("Invalid Amount\r\n");
+ 216   3            }
+ 217   2            break;
+ 218   2          
+ 219   2          default:
+ 220   2            transmit_string("No Such Account\r\n");
+ 221   2            break;
+ 222   2        }
+ 223   1        msdelay(100);
+ 224   1      }
+ 225          
+ 226          void main(void)
+ 227          {
+ 228   1          unsigned char ch = 0;
+ 229   1          uart_init();            // Please finish this function in endsem.h 
+ 230   1          while (1)
+ 231   1          {
+ 232   2            transmit_string("Press A for Account Display, W for Withdrawing\r\n");
+ 233   2            ch = receive_char();
+ 234   2            switch(ch)
+ 235   2            {
+ 236   3            case 'A':account_display();
+ 237   3                     break;
+ 238   3            
+ 239   3            case 'a':account_display();
+ 240   3                     break;
+C51 COMPILER V9.60.0.0   MAIN                                                              04/26/2022 13:18:44 PAGE 5   
+
+ 241   3            
+ 242   3            case 'W':withdraw_money();
+ 243   3                     break;
+ 244   3            
+ 245   3            case 'w':withdraw_money();
+ 246   3                     break;
+ 247   3                  
+ 248   3            default:transmit_string("Incorrect Input\r\n");
+ 249   3                     break;
+ 250   3            }
+ 251   2            msdelay(100);     
+ 252   2          }
+ 253   1      }
+ 254          
+ 255          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1611    ----
+   CONSTANT SIZE    =    354    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     37      30
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      2    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

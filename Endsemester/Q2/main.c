@@ -60,6 +60,11 @@ void withdraw_money(void)
 {
 	int i=0;
 	unsigned char chw = 0;
+	unsigned char ch1 = 0;
+	unsigned char ch2 = 0;
+	unsigned int cash = 0;
+	unsigned int fivehundreds=0;
+	unsigned int hundreds=0;
 	transmit_string("Withdraw state, enter account number\r\n");
 	chw = receive_char();
 	switch(chw)
@@ -74,6 +79,43 @@ void withdraw_money(void)
 			}
 			transmit_string("\r\n");
 			transmit_string("Enter Amount, in hundreds\r\n");
+			ch1 = receive_char();
+			ch2 = receive_char();
+			if((ch1>='0' && ch1<='9') && (ch2>='0' && ch2<='9')){
+				cash = ((10*((int)ch1 - 48)) + ((int)ch2 - 48))*100;
+				if(cash>sita){
+					transmit_string("Insufficient Funds\r\n");
+				}
+				else{
+					fivehundreds = cash/500;
+					hundreds = (cash%500)/100;
+					sita = sita - cash;
+					int_to_string(sita,S_str);
+					transmit_string("Remaining Balance: ");
+					for(i=1;i<6;i++)
+					{
+						transmit_char(S_str[i]);
+					}
+					transmit_string("\r\n");
+					int_to_string_2(hundreds,n100_s);
+					int_to_string_2(fivehundreds,n500_s);
+					transmit_string("500 Notes: ");
+					for(i=0;i<3;i++)
+					{
+						transmit_char(n500_s[i]);
+					}
+					transmit_string(", ");
+					transmit_string("100 Notes: ");
+					for(i=0;i<3;i++)
+					{
+						transmit_char(n100_s[i]);
+					}
+					transmit_string("\r\n");
+				}
+			}
+			else{
+					transmit_string("Invalid Amount\r\n");
+			}
 			break;
 		
 		case '2':
@@ -86,6 +128,43 @@ void withdraw_money(void)
 			}
 			transmit_string("\r\n");
 			transmit_string("Enter Amount, in hundreds\r\n");
+			ch1 = receive_char();
+			ch2 = receive_char();
+			if((ch1>='0' && ch1<='9') && (ch2>='0' && ch2<='9')){
+				cash = ((10*((int)ch1 - 48)) + ((int)ch2 - 48))*100;
+				if(cash>gita){
+					transmit_string("Insufficient Funds\r\n");
+				}
+				else{
+					fivehundreds = cash/500;
+					hundreds = (cash%500)/100;
+					gita = gita - cash;
+					int_to_string(gita,G_str);
+					transmit_string("Remaining Balance: ");
+					for(i=1;i<6;i++)
+					{
+						transmit_char(G_str[i]);
+					}
+					transmit_string("\r\n");
+					int_to_string_2(hundreds,n100_s);
+					int_to_string_2(fivehundreds,n500_s);
+					transmit_string("500 Notes: ");
+					for(i=0;i<3;i++)
+					{
+						transmit_char(n500_s[i]);
+					}
+					transmit_string(", ");
+					transmit_string("100 Notes: ");
+					for(i=0;i<3;i++)
+					{
+						transmit_char(n100_s[i]);
+					}
+					transmit_string("\r\n");
+				}
+			}
+			else{
+					transmit_string("Invalid Amount\r\n");
+			}
 			break;
 		
 		default:
