@@ -1,3 +1,0 @@
-".\Objects\largest.obj" 
-TO ".\Objects\Lab_1" 
-PRINT(".\Listings\Lab_1.m51") RAMSIZE(256) 

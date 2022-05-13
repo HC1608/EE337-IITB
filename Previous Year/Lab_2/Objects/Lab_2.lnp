@@ -1,3 +1,0 @@
-".\Objects\decimal.obj" 
-TO ".\Objects\Lab_2" 
-PRINT(".\Listings\Lab_2.m51") RAMSIZE(256) 
